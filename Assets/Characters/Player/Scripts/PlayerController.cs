@@ -18,11 +18,11 @@ public class PlayerController : MonoBehaviour
     private float gravity = 9.81f;
 
     private float verticalVelocity;
-    private Vector2 moveVector;
+    private Vector2 moveVector; //movement input
     private Vector2 lookVector;
     private Vector3 rotation;
-    private CharacterController characterController;
-    private Animator animator;
+    private CharacterController characterController; //character controller reference
+    private Animator animator; //animator reference
 
 
 
@@ -41,12 +41,12 @@ public class PlayerController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        moveVector = context.ReadValue<Vector2>();
+        moveVector = context.ReadValue<Vector2>(); //take in input
         if(moveVector.magnitude > 0)
         {
             animator.SetBool("isWalking", true);
-        }
-
+        } 
+        
         else
         {
             animator.SetBool("isWalking", false);
@@ -63,6 +63,35 @@ public class PlayerController : MonoBehaviour
         if(characterController.isGrounded && context.performed) //if on ground and jump button pressed
         {
             animator.Play("Unarmed Jump");
+        }
+    }
+
+    public void OnWalk(InputAction.CallbackContext context) //toggle walking speed
+    {
+        if (moveSpeed != 1.8f)
+        {
+            moveSpeed = 1.8f;
+        } 
+
+        else
+        {
+            moveSpeed = 5.0f;
+        }
+    }
+
+    public void OnSprint(InputAction.CallbackContext context) //sprint speed on input hold
+    {
+
+        float temp = moveSpeed;
+
+        if (context.started)
+        {
+            moveSpeed = 10.0f;
+        }
+        
+        else if (context.canceled)
+        {
+            moveSpeed = temp;
         }
     }
 
@@ -87,7 +116,7 @@ public class PlayerController : MonoBehaviour
         }
 
         Vector3 move = transform.right * moveVector.x + transform.forward * moveVector.y + transform.up*verticalVelocity; //calc movement
-        characterController.Move(move * moveSpeed * Time.deltaTime);
+        characterController.Move(move * moveSpeed * Time.deltaTime); //call move method on char controller
     }
 
     

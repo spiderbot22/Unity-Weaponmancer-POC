@@ -280,7 +280,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 311525313}
-  m_LocalRotation: {x: 0.11995757, y: 0.000006051883, z: -0.0000007312495, w: 0.992779}
+  m_LocalRotation: {x: 0.119957596, y: 0.000006052414, z: -0.0000007313138, w: 0.992779}
   m_LocalPosition: {x: -2.1437588, y: 2.213735, z: -6.033354}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -317,7 +317,7 @@ Transform:
   m_GameObject: {fileID: 658631520}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 1, z: 4}
+  m_LocalScale: {x: 10.03, y: 1, z: 9.99}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2085318708}
@@ -357,7 +357,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 1baf5fb8288f9fc49ae9ed7c78f93b63, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -624,7 +624,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.11995757, y: 0.000006051883, z: -0.0000007312495, w: 0.992779}
+  m_LocalRotation: {x: 0.119957596, y: 0.000006052414, z: -0.0000007313138, w: 0.992779}
   m_LocalPosition: {x: -2.1437588, y: 2.213735, z: -6.033354}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -744,6 +744,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 5ba331be-5d5f-42a7-9280-55341a02aa3e
     m_ActionName: Inputs/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1099089663}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnWalk
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: cc7d8e88-1593-4f02-a223-5af125840ce5
+    m_ActionName: Inputs/Walk[/Keyboard/capsLock]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1099089663}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnSprint
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d09239f5-43e7-4df5-94b5-345bfd850630
+    m_ActionName: Inputs/Sprint[/Keyboard/shift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Inputs
@@ -762,7 +794,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  lookSensitivity: 5
+  lookSensitivity: 10
   jumpHeight: 0.5
   gravity: 9.81
 --- !u!143 &1099089664
