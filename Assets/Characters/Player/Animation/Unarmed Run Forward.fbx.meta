@@ -33,7 +33,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: unarmed run forward
+      name: Unarmed Run Forward
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0

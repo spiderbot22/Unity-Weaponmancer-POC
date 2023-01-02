@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     private float moveSpeed = 1;
+    private float moveSpeedTemp;
 
     [SerializeField]
     private float lookSensitivity = 5;
@@ -79,20 +80,27 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void OnSprint(InputAction.CallbackContext context) //sprint speed on input hold
+    public void OnSprintStart(InputAction.CallbackContext context) //sprint speed on input hold
     {
 
-        float temp = moveSpeed;
-
+        //moveSpeedTemp = moveSpeed;
+      
         if (context.started)
         {
             moveSpeed = 10.0f;
         }
-        
-        else if (context.canceled)
+        Debug.Log("fuck");
+
+    }
+
+    public void OnSprintEnd(InputAction.CallbackContext context) //sprint speed on input release
+    {
+
+        if (context.canceled)
         {
-            moveSpeed = temp;
+            moveSpeed = 5f;
         }
+        Debug.Log("off");
     }
 
     private void Jump()
