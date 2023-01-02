@@ -6,8 +6,16 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
-    private float moveSpeed = 1;
-    private float moveSpeedTemp;
+    private float moveSpeed = 5;
+
+    [SerializeField]
+    private float walkSpeed = 1.8f;
+
+    [SerializeField]
+    private float jogSpeed = 5;
+
+    [SerializeField]
+    private float sprintSpeed = 10;
 
     [SerializeField]
     private float lookSensitivity = 5;
@@ -69,40 +77,34 @@ public class PlayerController : MonoBehaviour
 
     public void OnWalk(InputAction.CallbackContext context) //toggle walking speed
     {
-        if (moveSpeed != 1.8f)
+        if (moveSpeed != walkSpeed)
         {
-            moveSpeed = 1.8f;
+            moveSpeed = walkSpeed;
         } 
 
         else
         {
-            moveSpeed = 5.0f;
+            moveSpeed = jogSpeed;
         }
     }
 
-    public void OnSprintStart(InputAction.CallbackContext context) //sprint speed on input hold
+    public void OnSprint(InputAction.CallbackContext context) //sprint speed on input hold, jog speed on release
     {
 
-        //moveSpeedTemp = moveSpeed;
-      
-        if (context.started)
+        //if button pressed and not sprinting already
+        if (context.started && moveSpeed != sprintSpeed)
         {
-            moveSpeed = 10.0f;
+            moveSpeed = sprintSpeed;
         }
-        Debug.Log("fuck");
+
+        //if button released and sprinting already
+        if (context.canceled && moveSpeed == sprintSpeed)
+        {
+            moveSpeed = jogSpeed;
+        }
 
     }
-
-    public void OnSprintEnd(InputAction.CallbackContext context) //sprint speed on input release
-    {
-
-        if (context.canceled)
-        {
-            moveSpeed = 5f;
-        }
-        Debug.Log("off");
-    }
-
+    
     private void Jump()
     {
         verticalVelocity = Mathf.Sqrt(jumpHeight * gravity);
