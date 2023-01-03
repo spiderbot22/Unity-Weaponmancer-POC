@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
     private float gravity = 9.81f;
 
     private float verticalVelocity;
-    private Vector2 moveVector; //movement input
+    private Vector2 moveVector; //indicates movement direction
     private Vector2 lookVector;
     private Vector3 rotation;
     private CharacterController characterController; //character controller reference
@@ -120,6 +120,7 @@ public class PlayerController : MonoBehaviour
 
         Vector3 move = transform.right * moveVector.x + transform.forward * moveVector.y + transform.up*verticalVelocity; //calc movement
         characterController.Move(move * moveSpeed * Time.deltaTime); //call move method on char controller
+        Debug.Log(characterController.velocity);
     }
 
     
