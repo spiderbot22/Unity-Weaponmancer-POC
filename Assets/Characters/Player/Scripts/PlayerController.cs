@@ -51,28 +51,8 @@ public class PlayerController : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         moveVector = context.ReadValue<Vector2>(); //take in input
-        animator.SetFloat("Velocity", moveSpeed);
-        /*
-        if (moveVector.magnitude > 0 && < jogSpeed)
-        {
-            animator.SetBool("isWalking") true);
-            animator.SetBool("isJogging") false);
-            animator.SetBool("isSprinting") false);
-        }
+        Debug.Log(moveVector.magnitude);
 
-        if (moveVector.magnitude > walkSpeed && < sprintSpeed)
-        {
-            animator.SetBool("isWalking") false);
-            animator.SetBool("isJogging") true);
-            animator.SetBool("isSprinting") false);
-        }
-
-        if (moveVector.magnitude > jogSpeed)
-        {
-            animator.SetBool("isWalking") false);
-            animator.SetBool("isJogging", false);
-            animator.SetBool("isSprinting") true);
-        }*/
     }
 
     public void OnLook(InputAction.CallbackContext context)
