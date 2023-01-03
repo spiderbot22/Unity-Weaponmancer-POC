@@ -14,15 +14,12 @@ public class PlayerController : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
-    {
-        rigidBody = GetComponent<Rigidbody>();
-    }
+    void Awake() => _animator = GetComponent<Animator>();
 
     // Update is called once per frame
     void Update()
     {
-
+        
         float horizontal = moveVector.x;
         float vertical = moveVector.y;
 
@@ -46,12 +43,12 @@ public class PlayerController : MonoBehaviour
         //pass velocity to animator vars
         _animator.SetFloat("VelocityZ", velocityZ, 0.1f, Time.deltaTime); //("param name", param value, smoothing time, delta time)
         _animator.SetFloat("VelocityX", velocityX, 0.1f, Time.deltaTime);
+
     }
 
     public void InputRead(InputAction.CallbackContext context)
     {
         moveVector = context.ReadValue<Vector2>();
-        Debug.Log(moveVector);
     }
 
 }
