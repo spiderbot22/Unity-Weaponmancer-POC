@@ -51,15 +51,28 @@ public class PlayerController : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         moveVector = context.ReadValue<Vector2>(); //take in input
-        if(moveVector.magnitude > 0)
+        animator.SetFloat("Velocity", moveSpeed);
+        /*
+        if (moveVector.magnitude > 0 && < jogSpeed)
         {
-            animator.SetBool("isWalking", true);
-        } 
-        
-        else
-        {
-            animator.SetBool("isWalking", false);
+            animator.SetBool("isWalking") true);
+            animator.SetBool("isJogging") false);
+            animator.SetBool("isSprinting") false);
         }
+
+        if (moveVector.magnitude > walkSpeed && < sprintSpeed)
+        {
+            animator.SetBool("isWalking") false);
+            animator.SetBool("isJogging") true);
+            animator.SetBool("isSprinting") false);
+        }
+
+        if (moveVector.magnitude > jogSpeed)
+        {
+            animator.SetBool("isWalking") false);
+            animator.SetBool("isJogging", false);
+            animator.SetBool("isSprinting") true);
+        }*/
     }
 
     public void OnLook(InputAction.CallbackContext context)
@@ -69,9 +82,9 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if(characterController.isGrounded && context.performed) //if on ground and jump button pressed
+        if (characterController.isGrounded && context.performed) //if on ground and jump button pressed
         {
-            animator.Play("Unarmed Jump");
+            //animator.Play("Unarmed Jump");
         }
     }
 
@@ -107,7 +120,7 @@ public class PlayerController : MonoBehaviour
     
     private void Jump()
     {
-        verticalVelocity = Mathf.Sqrt(jumpHeight * gravity);
+        //verticalVelocity = Mathf.Sqrt(jumpHeight * gravity);
     }
 
     private void Rotate() //player rotatation based on mouse movement
