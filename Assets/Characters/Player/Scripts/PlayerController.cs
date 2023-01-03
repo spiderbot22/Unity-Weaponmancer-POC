@@ -14,7 +14,11 @@ public class PlayerController : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Awake() => _animator = GetComponent<Animator>();
+    void Awake()
+    {
+        _animator = GetComponent<Animator>();
+        _animator.SetBool("isWalking", true);
+    }
 
     // Update is called once per frame
     void Update()
