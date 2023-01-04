@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 39080530e6f344d41ba6b0031593d8b4
+guid: 51eb1db8fcaa4a147b5c82714c492346
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -33,7 +33,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Jogging Backward
+      name: Jogging Forward Right Mirrored
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
@@ -53,7 +53,7 @@ ModelImporter:
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
-      mirror: 0
+      mirror: 1
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
