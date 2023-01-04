@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0c28aab3ba40ed246bcf36c33799003c
+guid: f59682d8a8fa68642bf4e57e6edf3420
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -33,13 +33,13 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Walking Left Strafe Mirrored
+      name: Walking Strafe Right Mirrored
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
       lastFrame: 62
       wrapMode: 0
-      orientationOffsetY: 54
+      orientationOffsetY: -54
       level: 0
       cycleOffset: 0
       loop: 0

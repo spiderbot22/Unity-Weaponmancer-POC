@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f59682d8a8fa68642bf4e57e6edf3420
+guid: 7a069230fe2a1fb48ab2684bcc405bea
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -33,7 +33,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Walking Right Strafe Mirrored
+      name: Walking Strafe Right
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
@@ -53,7 +53,7 @@ ModelImporter:
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
-      mirror: 1
+      mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
