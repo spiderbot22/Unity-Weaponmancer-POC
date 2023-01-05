@@ -10,7 +10,9 @@ public class PlayerController : MonoBehaviour
     Vector2 moveVector;
     Rigidbody rigidBody;
     Animator _animator;
-
+    private Vector2 lookVector;
+    private Vector3 rotation;
+    private float lookSensitivity = 5;
 
 
     // Start is called before the first frame update
@@ -22,7 +24,19 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+        Move();
+        Rotate();
+
+    }
+
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        moveVector = context.ReadValue<Vector2>();
+    }
+
+    public void Move()
+    {
         float horizontal = moveVector.x;
         float vertical = moveVector.y;
 
@@ -46,15 +60,8 @@ public class PlayerController : MonoBehaviour
         //pass velocity to animator vars
         _animator.SetFloat("VelocityZ", velocityZ, 0.1f, Time.deltaTime); //("param name", param value, smoothing time, delta time)
         _animator.SetFloat("VelocityX", velocityX, 0.1f, Time.deltaTime);
-
     }
 
-    public void InputRead(InputAction.CallbackContext context)
-    {
-        moveVector = context.ReadValue<Vector2>();
-        Debug.Log(context);
-    }
-    
     public void OnWalkUnarmed(InputAction.CallbackContext context)
     {
 
@@ -83,14 +90,28 @@ public class PlayerController : MonoBehaviour
             _animator.SetBool("isWalkingUnarmed", false);
             _animator.SetBool("isJoggingUnarmed", false);
             _animator.SetBool("isSprintingUnarmed", true);
+            moveSpeed = 8;
         }
         else
         {
             _animator.SetBool("isWalkingUnarmed", false);
             _animator.SetBool("isJoggingUnarmed", true);
             _animator.SetBool("isSprintingUnarmed", false);
+            moveSpeed = 4;
         }
-        
+
+    }
+    public void OnLook(InputAction.CallbackContext context)
+    {
+        lookVector = context.ReadValue<Vector2>();
+    }
+
+    private void Rotate()
+    {
+        rotation.y += lookVector.x * lookSensitivity * Time.deltaTime;
+        //rotation.x += lookVector.y * lookSensitivity * Time.deltaTime;
+        transform.localEulerAngles = rotation;
+        Debug.Log(rotation);
     }
 
 
