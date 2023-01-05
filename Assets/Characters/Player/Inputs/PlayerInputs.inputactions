@@ -33,18 +33,18 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Walk",
+                    "name": "Sprint",
                     "type": "Value",
-                    "id": "cc7d8e88-1593-4f02-a223-5af125840ce5",
+                    "id": "d09239f5-43e7-4df5-94b5-345bfd850630",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Sprint",
+                    "name": "Walk",
                     "type": "Value",
-                    "id": "d09239f5-43e7-4df5-94b5-345bfd850630",
+                    "id": "b1f1fd25-2f54-4371-9e94-972ba2e892a8",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -131,23 +131,23 @@
                 },
                 {
                     "name": "",
-                    "id": "eeefab55-487e-4f5e-8dd7-a33ed93cb8b2",
-                    "path": "<Keyboard>/capsLock",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Walk",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "1bc509ec-bd19-4d50-a79c-92739b888d0c",
                     "path": "<Keyboard>/shift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d44c32fd-a012-4acd-94c5-4ea0035959dd",
+                    "path": "<Keyboard>/capsLock",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Walk",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

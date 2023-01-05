@@ -17,7 +17,6 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         _animator = GetComponent<Animator>();
-        _animator.SetBool("isWalking", true);
     }
 
     // Update is called once per frame
@@ -53,6 +52,46 @@ public class PlayerController : MonoBehaviour
     public void InputRead(InputAction.CallbackContext context)
     {
         moveVector = context.ReadValue<Vector2>();
+        Debug.Log(context);
     }
+    
+    public void OnWalkUnarmed(InputAction.CallbackContext context)
+    {
+
+        if(_animator.GetBool("isWalkingUnarmed") == false) //toggle walking
+        {
+            _animator.SetBool("isWalkingUnarmed", true);
+            _animator.SetBool("isJoggingUnarmed", false);
+            _animator.SetBool("isSprintingUnarmed", false);
+            moveSpeed = 1.8f;
+        } 
+        else
+        {
+            _animator.SetBool("isWalkingUnarmed", false);
+            _animator.SetBool("isJoggingUnarmed", true);
+            _animator.SetBool("isSprintingUnarmed", false);
+            moveSpeed = 4;
+        }
+        
+    }
+
+    public void OnSprintUnarmed(InputAction.CallbackContext context)
+    {
+
+        if(_animator.GetBool("isSprintingUnarmed") == false)
+        {
+            _animator.SetBool("isWalkingUnarmed", false);
+            _animator.SetBool("isJoggingUnarmed", false);
+            _animator.SetBool("isSprintingUnarmed", true);
+        }
+        else
+        {
+            _animator.SetBool("isWalkingUnarmed", false);
+            _animator.SetBool("isJoggingUnarmed", true);
+            _animator.SetBool("isSprintingUnarmed", false);
+        }
+        
+    }
+
 
 }
