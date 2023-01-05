@@ -7,8 +7,11 @@ public class PlayerController : MonoBehaviour
 {
 
     [SerializeField] float moveSpeed;
+    [SerializeField] LayerMask _aimLayerMask;
+    public Transform orientation;
+    Vector3 moveDirection;
     Vector2 moveVector;
-    Rigidbody rigidBody;
+    Rigidbody _rigidBody;
     Animator _animator;
     private Vector2 lookVector;
     private Vector3 rotation;
@@ -19,15 +22,13 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         _animator = GetComponent<Animator>();
+        _rigidBody = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
         Move();
-        Rotate();
-
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -39,8 +40,8 @@ public class PlayerController : MonoBehaviour
     {
         float horizontal = moveVector.x;
         float vertical = moveVector.y;
-
         Vector3 movement = new Vector3(horizontal, 0f, vertical);
+        moveDirection = orientation.forward * vertical + orientation.right * horizontal;
 
         /*Movement*/
 
@@ -48,18 +49,31 @@ public class PlayerController : MonoBehaviour
         {
             movement.Normalize();
             movement *= moveSpeed * Time.deltaTime;
-            transform.Translate(movement, Space.World);
+            //_rigidBody.AddForce(movement * moveSpeed * 30f, ForceMode.Force);
+            _rigidBody.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Force);
+
         }
 
         /*Animating*/
 
         //grab forward/back and left/right velocity to pass to animator vars
-        float velocityZ = Vector3.Dot(movement.normalized, transform.forward);
-        float velocityX = Vector3.Dot(movement.normalized, transform.right);
+        //float velocityZ = Vector3.Dot(movement.normalized, transform.forward);
+        //float velocityX = Vector3.Dot(movement.normalized, transform.right);
+        float velocityZ = Vector3.Dot(moveDirection.normalized, transform.forward);
+        float velocityX = Vector3.Dot(moveDirection.normalized, transform.right);
+
+        //Quaternion newDirection = Quaternion.LookRotation(movement);
 
         //pass velocity to animator vars
-        _animator.SetFloat("VelocityZ", velocityZ, 0.1f, Time.deltaTime); //("param name", param value, smoothing time, delta time)
-        _animator.SetFloat("VelocityX", velocityX, 0.1f, Time.deltaTime);
+        _animator.SetFloat("VelocityZ", velocityZ, 0.1f, Time.deltaTime);
+         _animator.SetFloat("VelocityX", velocityX, 0.1f, Time.deltaTime);
+
+        /*Rotation*/
+
+        transform.Rotate(Vector3.up, lookVector.x * lookSensitivity * Time.deltaTime);
+
+
+
     }
 
     public void OnWalkUnarmed(InputAction.CallbackContext context)
@@ -105,14 +119,5 @@ public class PlayerController : MonoBehaviour
     {
         lookVector = context.ReadValue<Vector2>();
     }
-
-    private void Rotate()
-    {
-        rotation.y += lookVector.x * lookSensitivity * Time.deltaTime;
-        //rotation.x += lookVector.y * lookSensitivity * Time.deltaTime;
-        transform.localEulerAngles = rotation;
-        Debug.Log(rotation);
-    }
-
 
 }
