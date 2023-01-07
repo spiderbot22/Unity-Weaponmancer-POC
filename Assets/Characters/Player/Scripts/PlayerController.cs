@@ -96,8 +96,7 @@ public class PlayerController : MonoBehaviour
         yRotation += mouseX;
         xRotation += mouseX;
 
-         _rigidBody.rotation = Quaternion.Euler(0, xRotation, 0);
-        //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, xRotation, 0), lookSensitivity * Time.deltaTime);
+        _rigidBody.rotation = Quaternion.Euler(0, xRotation, 0);
     }
 
     public void OnWalkUnarmed(InputAction.CallbackContext context)
