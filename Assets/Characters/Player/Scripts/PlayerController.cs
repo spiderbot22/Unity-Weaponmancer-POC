@@ -138,7 +138,7 @@ public class PlayerController : MonoBehaviour
     public void OnSprintUnarmed(InputAction.CallbackContext context)
     {
         
-        if (_animator.GetBool("isSprintingUnarmed") == false && context.performed)
+        if (_animator.GetBool("isSprintingUnarmed") == false && context.performed && moveVector.y > 0)
         {
             _animator.SetBool("isWalkingUnarmed", false);
             _animator.SetBool("isJoggingUnarmed", false);
