@@ -27,6 +27,11 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rigidBody;
     private Animator _animator;
     private Vector2 lookVector;
+    private float mouseX;
+    private float mouseY;
+    private float xRotation;
+    private float yRotation;
+
 
 
     // Start is called before the first frame update
@@ -34,32 +39,19 @@ public class PlayerController : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _rigidBody = GetComponent<Rigidbody>();
+        Cursor.lockState = CursorLockMode.Locked; //remove cursor
     }
 
     // Update is called once per frame
     void Update()
     {
-        Rotate();
-
-        /*Ground Check*/
-        grounded = Physics.Raycast(groundCheck.position, Vector3.down, groundDistance, whatIsGround);
-        Debug.Log(grounded);
-
-        /*Drag Handler*/
-        if (grounded)
-        {
-            _rigidBody.drag = groundDrag;
-        }
-        else
-        {
-            _rigidBody.drag = 0;
-        }
-
+        DragHandler();
     }
 
     private void FixedUpdate()
     {
         Move();
+        Rotate();
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -98,7 +90,13 @@ public class PlayerController : MonoBehaviour
 
     private void Rotate()
     {
-        transform.Rotate(Vector3.up, lookVector.x * lookSensitivity * Time.deltaTime);
+        mouseX = lookVector.x * Time.deltaTime * lookSensitivity;
+        mouseY = lookVector.y * Time.deltaTime * lookSensitivity;
+
+        yRotation += mouseX;
+        xRotation += mouseX;
+
+        _rigidBody.rotation = Quaternion.Euler(0, xRotation, 0);
     }
 
     public void OnWalkUnarmed(InputAction.CallbackContext context)
@@ -145,4 +143,19 @@ public class PlayerController : MonoBehaviour
         lookVector = context.ReadValue<Vector2>();
     }
 
+    private void DragHandler()
+    {
+        /*Ground Check*/
+        grounded = Physics.Raycast(groundCheck.position, Vector3.down, groundDistance, whatIsGround);
+
+        /*Drag Handler*/
+        if (grounded)
+        {
+            _rigidBody.drag = groundDrag;
+        }
+        else
+        {
+            _rigidBody.drag = 0;
+        }
+    }
 }
