@@ -13,7 +13,8 @@ public class PlayerController : MonoBehaviour
     public float sprintSpeed;
     public float moveSpeed;
     public float groundDrag;
-    public float lookSensitivity;
+    public float lookSensitivity = 5;
+    private float lookSensitivityTemp;
     public Transform orientation;
 
     [Header("Ground Check")]
@@ -34,13 +35,13 @@ public class PlayerController : MonoBehaviour
     private float yRotation;
 
 
-
     // Start is called before the first frame update
     void Awake()
     {
         _animator = GetComponent<Animator>();
         _rigidBody = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked; //remove cursor
+        lookSensitivityTemp = lookSensitivity;
     }
 
     // Update is called once per frame
@@ -79,20 +80,32 @@ public class PlayerController : MonoBehaviour
         {
             _rigidBody.AddForce(moveDirection.normalized * moveSpeed * moveSpeed, ForceMode.Force);
         } 
-        else if (movement.magnitude > 0 && _animator.GetBool("isSprintingUnarmed"))
+        else if (movement.magnitude > 0 && _animator.GetBool("isSprintingUnarmed") && movement.z > 0)
         {
             _rigidBody.AddForce(moveDirectionSprint * moveSpeed * moveSpeed, ForceMode.Force);
         }
-     
+        
         //pass velocity to animator vars
         _animator.SetFloat("VelocityZ", velocityZ, 0.1f, Time.deltaTime);
         _animator.SetFloat("VelocityX", velocityX, 0.1f, Time.deltaTime);
-
+        _animator.SetFloat("VelocityMagnitude", movement.magnitude * movement.z, 0.1f, Time.deltaTime);
 
     }
 
     private void Rotate()
     {
+        /*
+        //slow down rotation when sprinting
+        if (_animator.GetBool("isSprintingUnarmed") && moveVector.y > 0) 
+        {
+            lookSensitivityTemp = lookSensitivity;
+            lookSensitivity = 0.5f;
+        }
+        else
+        {
+            lookSensitivity = lookSensitivityTemp;
+        }
+        */
         mouseX = lookVector.x * Time.deltaTime * lookSensitivity;
         mouseY = lookVector.y * Time.deltaTime * lookSensitivity;
 
@@ -124,20 +137,23 @@ public class PlayerController : MonoBehaviour
 
     public void OnSprintUnarmed(InputAction.CallbackContext context)
     {
-
-        if(_animator.GetBool("isSprintingUnarmed") == false)
+        
+        if (_animator.GetBool("isSprintingUnarmed") == false && context.performed)
         {
             _animator.SetBool("isWalkingUnarmed", false);
             _animator.SetBool("isJoggingUnarmed", false);
             _animator.SetBool("isSprintingUnarmed", true);
             moveSpeed = sprintSpeed;
+            lookSensitivity = 0.5f;
         }
         else
         {
+            Debug.Log(lookSensitivityTemp);
             _animator.SetBool("isWalkingUnarmed", false);
             _animator.SetBool("isJoggingUnarmed", true);
             _animator.SetBool("isSprintingUnarmed", false);
             moveSpeed = jogSpeed;
+            lookSensitivity = lookSensitivityTemp;
         }
 
     }

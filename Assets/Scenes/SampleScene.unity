@@ -910,9 +910,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   walkSpeed: 4
-  jogSpeed: 5
+  jogSpeed: 6
   sprintSpeed: 8
-  moveSpeed: 5
+  moveSpeed: 6
   groundDrag: 5
   lookSensitivity: 5
   orientation: {fileID: 1921592210}
