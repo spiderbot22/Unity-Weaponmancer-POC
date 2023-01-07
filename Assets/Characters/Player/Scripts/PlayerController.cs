@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     bool grounded;
     
     private Vector3 moveDirection;
+    private Vector3 moveDirectionSprint;
     private Vector2 moveVector;
     private Rigidbody _rigidBody;
     private Animator _animator;
@@ -61,20 +62,10 @@ public class PlayerController : MonoBehaviour
 
     public void Move()
     {
-        float horizontal = moveVector.x;
-        float vertical = moveVector.y;
-        Vector3 movement = new Vector3(horizontal, 0f, vertical);
-        moveDirection = orientation.forward * vertical + orientation.right * horizontal;
 
-        /*Movement*/
-
-        if (movement.magnitude > 0)
-        {
-            movement.Normalize();
-            movement *= moveSpeed * Time.deltaTime;
-            _rigidBody.AddForce(moveDirection.normalized * moveSpeed * moveSpeed, ForceMode.Force);
-
-        }
+        Vector3 movement = new Vector3(moveVector.x, 0f, moveVector.y);
+        moveDirection = orientation.forward * moveVector.y + orientation.right * moveVector.x;
+        moveDirectionSprint = orientation.forward * moveVector.y; //for disabling horizontal movement when sprinting
 
         /*Animating*/
 
@@ -82,9 +73,21 @@ public class PlayerController : MonoBehaviour
         float velocityZ = Vector3.Dot(moveDirection.normalized, transform.forward);
         float velocityX = Vector3.Dot(moveDirection.normalized, transform.right);
 
+        /*Movement*/
+
+        if (movement.magnitude > 0 && _animator.GetBool("isSprintingUnarmed") == false)
+        {
+            _rigidBody.AddForce(moveDirection.normalized * moveSpeed * moveSpeed, ForceMode.Force);
+        } 
+        else if (movement.magnitude > 0 && _animator.GetBool("isSprintingUnarmed"))
+        {
+            _rigidBody.AddForce(moveDirectionSprint * moveSpeed * moveSpeed, ForceMode.Force);
+        }
+     
         //pass velocity to animator vars
         _animator.SetFloat("VelocityZ", velocityZ, 0.1f, Time.deltaTime);
-         _animator.SetFloat("VelocityX", velocityX, 0.1f, Time.deltaTime);
+        _animator.SetFloat("VelocityX", velocityX, 0.1f, Time.deltaTime);
+
 
     }
 
