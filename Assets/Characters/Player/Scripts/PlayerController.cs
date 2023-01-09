@@ -94,18 +94,7 @@ public class PlayerController : MonoBehaviour
 
     private void Rotate()
     {
-        /*
-        //slow down rotation when sprinting
-        if (_animator.GetBool("isSprintingUnarmed") && moveVector.y > 0) 
-        {
-            lookSensitivityTemp = lookSensitivity;
-            lookSensitivity = 0.5f;
-        }
-        else
-        {
-            lookSensitivity = lookSensitivityTemp;
-        }
-        */
+        
         mouseX = lookVector.x * Time.deltaTime * lookSensitivity;
         mouseY = lookVector.y * Time.deltaTime * lookSensitivity;
 
