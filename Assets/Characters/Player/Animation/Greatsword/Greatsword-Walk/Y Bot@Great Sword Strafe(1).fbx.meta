@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 930d7dfb1e62521408cb4bd410a83ce3
+guid: 3581007e220e76147974630929ede62c
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -33,21 +33,21 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Greatsword Walk Right
+      name: Great Sword Strafe(1)
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
       lastFrame: 69
       wrapMode: 0
-      orientationOffsetY: -18.8
+      orientationOffsetY: -18.86
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
-      loopBlendPositionY: 1
+      loopBlendPositionY: 0
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
