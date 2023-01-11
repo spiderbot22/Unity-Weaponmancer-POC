@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2623995de8a99c246b88b3b299ab80d2
+guid: 25900fe51ca36184792b46409b64afa0
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -33,27 +33,27 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Great Sword Strafe
+      name: Greatsword Walk Back Mirrored
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 65
+      lastFrame: 77
       wrapMode: 0
-      orientationOffsetY: -16.6
+      orientationOffsetY: -27
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 1
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
+      keepOriginalPositionXZ: 1
       heightFromFeet: 0
-      mirror: 0
+      mirror: 1
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
