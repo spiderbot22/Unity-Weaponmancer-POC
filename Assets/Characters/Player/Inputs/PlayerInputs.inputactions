@@ -51,12 +51,21 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "SheathWeapon",
+                    "name": "DrawWeapon",
                     "type": "Button",
                     "id": "88729a6b-74ac-4f44-ba41-ccb9a8d277f9",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Attack",
+                    "type": "Button",
+                    "id": "5422a1b2-f286-4139-a3ee-b456a4781f92",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 }
             ],
@@ -163,11 +172,22 @@
                 {
                     "name": "",
                     "id": "94426d29-d6a2-4d0f-aff5-c7d391b8d4a0",
-                    "path": "<Keyboard>/x",
-                    "interactions": "",
+                    "path": "<Keyboard>/r",
+                    "interactions": "Tap",
                     "processors": "",
                     "groups": "",
-                    "action": "SheathWeapon",
+                    "action": "DrawWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c351e4a0-85a4-499e-bea2-8fe1b38f5e9c",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Tap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

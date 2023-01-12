@@ -126,7 +126,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnSprintUnarmed(InputAction.CallbackContext context)
     {
-        
+        //if (isSprintingUnarmed is false, button is pressed but not released, moving forward)
         if (_animator.GetBool("isSprintingUnarmed") == false && context.performed && moveVector.y > 0)
         {
             _animator.SetBool("isWalkingUnarmed", false);
@@ -137,12 +137,11 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            Debug.Log(lookSensitivityTemp);
             _animator.SetBool("isWalkingUnarmed", false);
             _animator.SetBool("isJoggingUnarmed", true);
             _animator.SetBool("isSprintingUnarmed", false);
             moveSpeed = jogSpeed;
-            lookSensitivity = lookSensitivityTemp;
+            lookSensitivity = lookSensitivityTemp; //return look sens to default
         }
 
     }
