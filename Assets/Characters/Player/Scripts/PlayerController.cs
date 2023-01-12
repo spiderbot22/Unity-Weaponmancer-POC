@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour
     {
         Move();
         Rotate();
+        //_animator.SetFloat("velocityMagnitude", _rigidBody.velocity.magnitude);
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -88,8 +89,8 @@ public class PlayerController : MonoBehaviour
         //pass velocity to animator vars
         _animator.SetFloat("VelocityZ", velocityZ, 0.1f, Time.deltaTime);
         _animator.SetFloat("VelocityX", velocityX, 0.1f, Time.deltaTime);
-        _animator.SetFloat("VelocityMagnitude", movement.magnitude * movement.z, 0.1f, Time.deltaTime);
-
+        _animator.SetFloat("backwardsCheck", movement.magnitude * movement.z, 0.1f, Time.deltaTime);
+        _animator.SetFloat("velocityMagnitude", _rigidBody.velocity.magnitude);
     }
 
     private void Rotate()
@@ -152,8 +153,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnSheath(InputAction.CallbackContext context)
     {
-        Debug.Log(context.phase);
-
+        
         if(_animator.GetBool("inCombat") == false && context.performed)
         {
             _animator.SetTrigger("drawWeaponTrigger");

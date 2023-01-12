@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b70d6e4e5911d9144aa70f8bd8a407f3
+guid: 2cce769a9435c9741ba6783c40496f66
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Greatsword Sheath Reach Up Untrimmed
+      name: Greatsword Sheath Reach Up 92
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 44
+      lastFrame: 40
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
