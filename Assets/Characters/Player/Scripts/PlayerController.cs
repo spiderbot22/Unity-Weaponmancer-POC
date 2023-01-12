@@ -152,7 +152,19 @@ public class PlayerController : MonoBehaviour
 
     public void OnSheath(InputAction.CallbackContext context)
     {
+        Debug.Log(context.phase);
 
+        if(_animator.GetBool("inCombat") == false && context.performed)
+        {
+            _animator.SetTrigger("drawWeaponTrigger");
+            _animator.SetBool("inCombat", true);
+        } 
+        else if(_animator.GetBool("inCombat") && context.performed)
+        {
+            _animator.SetTrigger("sheathWeaponTrigger");
+            _animator.SetBool("inCombat", false);
+        }
+        
     }
 
     private void DragHandler()
