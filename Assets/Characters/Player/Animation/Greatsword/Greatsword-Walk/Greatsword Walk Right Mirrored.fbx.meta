@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e7bbf525a5f5bad49ab0ccc4b6a78071
+guid: cf32d9154fbd6024aad80071bd72866d
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -33,13 +33,13 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Greatsword Walk Right
+      name: Greatsword Walk Right Mirrored
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
       lastFrame: 69
       wrapMode: 0
-      orientationOffsetY: -18.8
+      orientationOffsetY: -17.6
       level: 0
       cycleOffset: 0
       loop: 0
