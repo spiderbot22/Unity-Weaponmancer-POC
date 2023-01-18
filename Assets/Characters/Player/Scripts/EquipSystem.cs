@@ -20,14 +20,22 @@ public class EquipSystem : MonoBehaviour
 
     public void DrawWeapon()
     {
-        currentWepHand = Instantiate(weapon, weaponHolder.transform);
-        Destroy(currentWepSheath);
+        if (currentWepHand == null && currentWepSheath != null)
+        {
+            currentWepHand = Instantiate(weapon, weaponHolder.transform);
+            Destroy(currentWepSheath);
+        }
+        
     }
 
     public void SheathWeapon()
     {
-        currentWepSheath = Instantiate(weapon, weaponSheath.transform);
-        Destroy(currentWepHand);
+        if (currentWepHand != null && currentWepSheath == null)
+        {
+            currentWepSheath = Instantiate(weapon, weaponSheath.transform);
+            Destroy(currentWepHand);
+        }
+        
     }
 
 
