@@ -35,7 +35,8 @@ public class Attack : MonoBehaviour
     
     public void StartAttack()
     {
-        if (timePassed == 0)
+        
+        if (timePassed == 0 && _animator.GetBool("inCombat"))
         {
             _animator.applyRootMotion = true;
             _animator.SetTrigger("attackTrigger");

@@ -77,11 +77,11 @@ public class PlayerController : MonoBehaviour
 
         /*Movement*/
 
-        if (movement.magnitude > 0 && _animator.GetBool("isSprintingUnarmed") == false)
+        if (movement.magnitude > 0 && _animator.GetBool("isSprinting") == false)
         {
             _rigidBody.AddForce(moveDirection.normalized * moveSpeed * moveSpeed, ForceMode.Force);
         } 
-        else if (movement.magnitude > 0 && _animator.GetBool("isSprintingUnarmed") && movement.z > 0)
+        else if (movement.magnitude > 0 && _animator.GetBool("isSprinting") && movement.z > 0)
         {
             _rigidBody.AddForce(moveDirectionSprint * moveSpeed * moveSpeed, ForceMode.Force);
         }
@@ -105,42 +105,42 @@ public class PlayerController : MonoBehaviour
         _rigidBody.rotation = Quaternion.Euler(0, xRotation, 0);
     }
 
-    public void OnWalkUnarmed(InputAction.CallbackContext context)
+    public void OnWalk(InputAction.CallbackContext context)
     {
 
-        if(_animator.GetBool("isWalkingUnarmed") == false) //toggle walking
+        if(_animator.GetBool("isWalking") == false) //toggle walking
         {
-            _animator.SetBool("isWalkingUnarmed", true);
-            _animator.SetBool("isJoggingUnarmed", false);
-            _animator.SetBool("isSprintingUnarmed", false);
+            _animator.SetBool("isWalking", true);
+            _animator.SetBool("isJogging", false);
+            _animator.SetBool("isSprinting", false);
             moveSpeed = walkSpeed;
         } 
         else
         {
-            _animator.SetBool("isWalkingUnarmed", false);
-            _animator.SetBool("isJoggingUnarmed", true);
-            _animator.SetBool("isSprintingUnarmed", false);
+            _animator.SetBool("isWalking", false);
+            _animator.SetBool("isJogging", true);
+            _animator.SetBool("isSprinting", false);
             moveSpeed = jogSpeed;
         }
         
     }
 
-    public void OnSprintUnarmed(InputAction.CallbackContext context)
+    public void OnSprint(InputAction.CallbackContext context)
     {
-        //if (isSprintingUnarmed is false, button is pressed but not released, moving forward)
-        if (_animator.GetBool("isSprintingUnarmed") == false && context.performed && moveVector.y > 0)
+        //if (isSprinting is false, button is pressed but not released, moving forward)
+        if (_animator.GetBool("isSprinting") == false && context.performed && moveVector.y > 0)
         {
-            _animator.SetBool("isWalkingUnarmed", false);
-            _animator.SetBool("isJoggingUnarmed", false);
-            _animator.SetBool("isSprintingUnarmed", true);
+            _animator.SetBool("isWalking", false);
+            _animator.SetBool("isJogging", false);
+            _animator.SetBool("isSprinting", true);
             moveSpeed = sprintSpeed;
             lookSensitivity = 0.5f;
         }
         else
         {
-            _animator.SetBool("isWalkingUnarmed", false);
-            _animator.SetBool("isJoggingUnarmed", true);
-            _animator.SetBool("isSprintingUnarmed", false);
+            _animator.SetBool("isWalking", false);
+            _animator.SetBool("isJogging", true);
+            _animator.SetBool("isSprinting", false);
             moveSpeed = jogSpeed;
             lookSensitivity = lookSensitivityTemp; //return look sens to default
         }
@@ -157,12 +157,10 @@ public class PlayerController : MonoBehaviour
         if(_animator.GetBool("inCombat") == false && context.performed)
         {
             _animator.SetTrigger("drawWeaponTrigger");
-            _animator.SetBool("inCombat", true);
         } 
         else if(_animator.GetBool("inCombat") && context.performed)
         {
             _animator.SetTrigger("sheathWeaponTrigger");
-            _animator.SetBool("inCombat", false);
         }
         
     }

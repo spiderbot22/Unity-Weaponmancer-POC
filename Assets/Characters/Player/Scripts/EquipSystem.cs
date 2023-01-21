@@ -12,10 +12,12 @@ public class EquipSystem : MonoBehaviour
 
     private GameObject currentWepHand;
     private GameObject currentWepSheath;
+    private Animator _animator;
 
     void Start()
     {
         currentWepSheath = Instantiate(weapon, weaponSheath.transform);
+        _animator = GetComponent<Animator>();
     }
 
     public void DrawWeapon()
@@ -38,7 +40,14 @@ public class EquipSystem : MonoBehaviour
         
     }
 
+    public void WepIsDrawn()
+    {
+        _animator.SetBool("inCombat", true);
+    }
 
-
+    public void WepIsSheathed()
+    {
+        _animator.SetBool("inCombat", false);
+    }
 
 }

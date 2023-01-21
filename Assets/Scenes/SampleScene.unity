@@ -1002,7 +1002,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1921592207}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnSprintUnarmed
+        m_MethodName: OnSprint
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1018,7 +1018,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1921592207}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnWalkUnarmed
+        m_MethodName: OnWalk
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
