@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     private float mouseY;
     private float xRotation;
     private float yRotation;
+    Attack a = new Attack();
 
 
     // Start is called before the first frame update
@@ -54,7 +55,6 @@ public class PlayerController : MonoBehaviour
     {
         Move();
         Rotate();
-        //_animator.SetFloat("velocityMagnitude", _rigidBody.velocity.magnitude);
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -165,6 +165,14 @@ public class PlayerController : MonoBehaviour
             _animator.SetBool("inCombat", false);
         }
         
+    }
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            a.Attacking();
+        }
     }
 
     private void DragHandler()
