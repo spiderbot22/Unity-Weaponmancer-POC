@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     private float mouseY;
     private float xRotation;
     private float yRotation;
-    Attack a = new Attack();
+    public Attack attack; //instance of Attack class
 
 
     // Start is called before the first frame update
@@ -169,9 +169,9 @@ public class PlayerController : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && _animator.GetBool("inCombat"))
         {
-            a.Attacking();
+            attack.StartAttack();
         }
     }
 

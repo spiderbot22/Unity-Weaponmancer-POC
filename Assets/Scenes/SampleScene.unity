@@ -936,6 +936,7 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 1024
+  attack: {fileID: 1921592214}
 --- !u!114 &1921592208
 MonoBehaviour:
   m_ObjectHideFlags: 0
