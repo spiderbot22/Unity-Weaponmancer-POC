@@ -20,17 +20,13 @@ public class Attack : MonoBehaviour
     public void LateUpdate()
     {
          //counting time passed during animation
-         if (_animator.GetBool("inCombat"))
-        {
-            clipLength = _animator.GetCurrentAnimatorClipInfo(1)[0].clip.length; //get length of clip
-        }
-
         if (attack)
         {
+            clipLength = _animator.GetCurrentAnimatorClipInfo(1)[0].clip.length; //get length of clip
             timePassed += Time.deltaTime; //keeps track of time passed
         }
 
-        if (timePassed > clipLength)
+        if (timePassed >= clipLength - 0.2)
         {
             EndAttack();
         }
@@ -45,6 +41,12 @@ public class Attack : MonoBehaviour
             _animator.SetTrigger("attackTrigger");
             attack = true;
         }
+
+        if (timePassed >= clipLength*0.6) //start combo attack
+        {
+            timePassed = 0;
+            _animator.SetTrigger("attackTrigger");
+        }
     }
 
     public void EndAttack()
@@ -53,8 +55,4 @@ public class Attack : MonoBehaviour
         _animator.applyRootMotion = false;
         timePassed = 0;
     }
-
-
-
-
 }
