@@ -17,7 +17,7 @@ public class Attack : MonoBehaviour
         _animator = GetComponent<Animator>(); //cache animator
     }
 
-    public void LateUpdate()
+    public void FixedUpdate()
     {
          //counting time passed during animation
         if (attack)
@@ -38,9 +38,9 @@ public class Attack : MonoBehaviour
         
         if (timePassed == 0 && _animator.GetBool("inCombat"))
         {
-            _animator.applyRootMotion = true;
             _animator.SetTrigger("attackTrigger");
             attack = true;
+            _animator.applyRootMotion = true;
         }
 
         if (timePassed >= clipLength*0.6) //start combo attack
@@ -52,8 +52,8 @@ public class Attack : MonoBehaviour
 
     public void EndAttack()
     {
-        attack = false;
         _animator.applyRootMotion = false;
+        attack = false;
         timePassed = 0;
     }
 }
