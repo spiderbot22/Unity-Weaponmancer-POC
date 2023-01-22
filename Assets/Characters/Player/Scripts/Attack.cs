@@ -26,6 +26,11 @@ public class Attack : MonoBehaviour
             timePassed += Time.deltaTime; //keeps track of time passed
         }
 
+        if (timePassed >= 0.2)
+        {
+            _animator.applyRootMotion = true;
+        }
+
         if (timePassed >= clipLength - 0.2)
         {
             EndAttack();
@@ -40,7 +45,7 @@ public class Attack : MonoBehaviour
         {
             _animator.SetTrigger("attackTrigger");
             attack = true;
-            _animator.applyRootMotion = true;
+           // _animator.applyRootMotion = true;
         }
 
         if (timePassed >= clipLength*0.6) //start combo attack
@@ -62,4 +67,21 @@ public class Attack : MonoBehaviour
         _animator.SetBool("inputHeldDown", false);
         _animator.applyRootMotion = false;
     }
+
+    public void RootMotionOn()
+    {
+        _animator.applyRootMotion = true;
+    }
+
+    public void RootMotionOff()
+    {
+        _animator.applyRootMotion = false;
+    }
+
+
+
+
+
 }
+
+
