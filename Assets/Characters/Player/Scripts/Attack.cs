@@ -56,4 +56,9 @@ public class Attack : MonoBehaviour
         attack = false;
         timePassed = 0;
     }
+
+    public void EndHeldAttack ()
+    {
+        _animator.SetBool("inputHeldDown", false);
+    }
 }

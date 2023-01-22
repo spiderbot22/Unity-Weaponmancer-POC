@@ -65,7 +65,7 @@
                     "id": "5422a1b2-f286-4139-a3ee-b456a4781f92",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press",
+                    "interactions": "",
                     "initialStateCheck": false
                 }
             ],
@@ -184,7 +184,7 @@
                     "name": "",
                     "id": "c351e4a0-85a4-499e-bea2-8fe1b38f5e9c",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "Tap",
+                    "interactions": "Hold",
                     "processors": "",
                     "groups": "",
                     "action": "Attack",

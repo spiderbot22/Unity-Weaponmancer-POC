@@ -167,7 +167,16 @@ public class PlayerController : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
+        Debug.Log(context.phase);
+
         if (context.performed && _animator.GetBool("inCombat"))
+        {
+
+            _animator.SetBool("inputHeldDown", true);
+            attack.StartAttack();
+        }
+
+        if (context.canceled && _animator.GetBool("inCombat"))
         {
             attack.StartAttack();
         }
