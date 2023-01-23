@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b036d373d814ac34b82be72aff35c6db
+guid: cdcd7ea2479c70340bf6078f628bcd91
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -33,13 +33,13 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Greatsword Walk Forward
+      name: Magic Idle
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 81
+      lastFrame: 112
       wrapMode: 0
-      orientationOffsetY: -20.05
+      orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
@@ -49,9 +49,9 @@ ModelImporter:
       loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 1
+      keepOriginalPositionXZ: 0
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000

@@ -198,6 +198,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnMeleeMode(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            _animator.SetBool("meleeMode", true);
+            _animator.SetBool("magicMode", false);
+        }
+    }
+
+    public void OnMagicMode(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            _animator.SetBool("meleeMode", false);
+            _animator.SetBool("magicMode", true);
+        }
+    }
+
     private void DragHandler()
     {
         /*Ground Check*/

@@ -1078,6 +1078,54 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: bca03e33-35e2-489b-81aa-3431f96c13af
     m_ActionName: Inputs/Block[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1921592207}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnMeleeMode
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 260b601a-a18b-4b05-a32e-b3c56f92dfa5
+    m_ActionName: Inputs/Melee Mode[/Keyboard/1]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1921592207}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnMagicMode
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2c6e8d7e-ea02-46a8-ada5-4a1f2f7ea21e
+    m_ActionName: Inputs/Magic Mode[/Keyboard/2]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3fd3166d-2ef2-4490-8afd-54b38ffb4302
+    m_ActionName: Inputs/Ability Select 1[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 00107e06-f7ad-4d9b-8ce7-562da81dbf71
+    m_ActionName: Inputs/Ability Select 2[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 62140209-c489-4d16-b982-0f48dc9b3c9c
+    m_ActionName: Inputs/Ability Select 3[/Keyboard/x]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 094282fa-72a8-41bd-a2b1-e2c8bc135183
+    m_ActionName: Inputs/Ability Select 4[/Keyboard/c]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Inputs
