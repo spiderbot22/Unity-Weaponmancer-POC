@@ -196,7 +196,6 @@ public class PlayerController : MonoBehaviour
             _animator.SetTrigger("blockTrigger");
             moveSpeed = tempSpeed;
         }
-
     }
 
     private void DragHandler()
