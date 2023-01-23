@@ -6,7 +6,8 @@ public class EquipSystem : MonoBehaviour
 {
 
     [Header("Weapon and Holders")]
-    public GameObject weaponHolder;
+    public GameObject meleeWeaponHolder;
+    public GameObject magicWeaponHolder;
     public GameObject weapon;
     public GameObject weaponSheath;
 
@@ -24,10 +25,19 @@ public class EquipSystem : MonoBehaviour
     {
         if (currentWepHand == null && currentWepSheath != null)
         {
-            currentWepHand = Instantiate(weapon, weaponHolder.transform);
-            Destroy(currentWepSheath);
-        }
-        
+            if (_animator.GetBool("meleeMode")) 
+            {
+                currentWepHand = Instantiate(weapon, meleeWeaponHolder.transform);
+                Destroy(currentWepSheath);
+            }
+
+            if (_animator.GetBool("magicMode"))
+            {
+                Debug.Log("fire");
+                currentWepHand = Instantiate(weapon, magicWeaponHolder.transform);
+                Destroy(currentWepSheath);
+            }
+        } 
     }
 
     public void SheathWeapon()
@@ -37,7 +47,6 @@ public class EquipSystem : MonoBehaviour
             currentWepSheath = Instantiate(weapon, weaponSheath.transform);
             Destroy(currentWepHand);
         }
-        
     }
 
     public void WepIsDrawn()

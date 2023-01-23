@@ -707,6 +707,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1852576806548013000, guid: d59fdc1eddaf209428a8d1742b84aaf4, type: 3}
   m_PrefabInstance: {fileID: 1798335765}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1395630449
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1395630450}
+  m_Layer: 0
+  m_Name: MagicWeaponHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1395630450
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1395630449}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.823, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1259368111}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1601389489
 GameObject:
   m_ObjectHideFlags: 0
@@ -748,7 +779,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1659637686}
   m_Layer: 0
-  m_Name: WeaponHolder
+  m_Name: MeleeWeaponHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1148,7 +1179,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b3ff561714cb484089811ab212f7ebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponHolder: {fileID: 1659637685}
+  meleeWeaponHolder: {fileID: 1659637685}
+  magicWeaponHolder: {fileID: 1395630449}
   weapon: {fileID: 3802249186437252854, guid: 4f54838159ef99a499ade0215029696e, type: 3}
   weaponSheath: {fileID: 1601389489}
 --- !u!114 &1921592214
