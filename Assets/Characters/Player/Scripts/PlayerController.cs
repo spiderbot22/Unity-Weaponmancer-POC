@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public float jogSpeed;
     public float sprintSpeed;
     public float moveSpeed;
+    private float tempSpeed;
     public float groundDrag;
     public float lookSensitivity = 5;
     private float lookSensitivityTemp;
@@ -171,7 +172,6 @@ public class PlayerController : MonoBehaviour
 
         if (context.performed && _animator.GetBool("inCombat"))
         {
-
             _animator.SetBool("inputHeldDown", true);
             attack.StartAttack();
         }
@@ -180,6 +180,23 @@ public class PlayerController : MonoBehaviour
         {
             attack.StartAttack();
         }
+    }
+
+    public void OnBlock(InputAction.CallbackContext context)
+    {
+        if (context.performed && _animator.GetBool("inCombat"))
+        {
+            tempSpeed = moveSpeed;
+            _animator.SetTrigger("blockTrigger");
+            moveSpeed = 0;
+        }
+
+        if (context.canceled && _animator.GetBool("inCombat"))
+        {
+            _animator.SetTrigger("blockTrigger");
+            moveSpeed = tempSpeed;
+        }
+
     }
 
     private void DragHandler()
