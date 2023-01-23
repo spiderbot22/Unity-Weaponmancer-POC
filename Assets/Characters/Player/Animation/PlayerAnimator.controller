@@ -562,6 +562,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: drawWeaponTrigger
     m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: meleeMode
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5703952417567401232}
   m_Solo: 0
@@ -1014,6 +1017,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: drawWeaponTrigger
     m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: meleeMode
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -4333237189506114805}
   m_Solo: 0
@@ -1331,7 +1337,7 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
   m_ExitTime: 0.80679154
-  m_HasExitTime: 1
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1

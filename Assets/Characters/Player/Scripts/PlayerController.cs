@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
     private float xRotation;
     private float yRotation;
     public Attack attack; //instance of Attack class
+    public EquipSystem es; //instance of EquipSystem class
 
 
     // Start is called before the first frame update
@@ -155,13 +156,25 @@ public class PlayerController : MonoBehaviour
     public void OnSheath(InputAction.CallbackContext context)
     {
         
-        if(_animator.GetBool("inCombat") == false && context.performed)
+        if (_animator.GetBool("inCombat") == false && context.performed)
         {
             _animator.SetTrigger("drawWeaponTrigger");
+
+            if (_animator.GetBool("magicMode"))
+            {
+                es.DrawWeapon();
+                es.WepIsDrawn();
+            }
         } 
-        else if(_animator.GetBool("inCombat") && context.performed)
+        else if (_animator.GetBool("inCombat") && context.performed)
         {
             _animator.SetTrigger("sheathWeaponTrigger");
+
+            if (_animator.GetBool("magicMode"))
+            {
+                es.SheathWeapon();
+                es.WepIsSheathed();
+            }
         }
         
     }
