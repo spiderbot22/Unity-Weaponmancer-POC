@@ -14,6 +14,8 @@ public class EquipSystem : MonoBehaviour
     private GameObject currentWepHand;
     private GameObject currentWepSheath;
     private Animator _animator;
+    public float rotationSpeed = 1;
+    private Quaternion zeroRotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
 
     void Start()
     {
@@ -67,14 +69,25 @@ public class EquipSystem : MonoBehaviour
     public void WepIsNotMagicBlocking()
     {
         _animator.SetBool("isMagicBlocking", false);
+        currentWepHand.transform.rotation = zeroRotation;
     }
 
     public void WepRotateWithCam(float xRotation, float yRotation)
     {
-        if (_animator.GetBool("magicMode"))
+        if (_animator.GetBool("magicMode") && _animator.GetBool("isMagicBlocking") == false)
         {
             magicWeaponHolder.transform.rotation = Quaternion.Euler(0, xRotation, 0);
         }
+
+        if (_animator.GetBool("magicMode") && _animator.GetBool("isMagicBlocking") == true)
+        {
+            
+            magicWeaponHolder.transform.rotation = Quaternion.Euler(90, xRotation, -180);
+            currentWepHand.transform.Rotate(Vector3.up, 15.0f);
+
+        }
+
+
     }
 
     public void MagicBlock()

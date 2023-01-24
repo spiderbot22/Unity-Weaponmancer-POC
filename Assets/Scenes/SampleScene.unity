@@ -730,8 +730,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1395630449}
-  m_LocalRotation: {x: -0.03680274, y: -0.39566064, z: -0.36886472, w: 0.8402601}
-  m_LocalPosition: {x: 0.06268135, y: 0.49404138, z: 0.032911368}
+  m_LocalRotation: {x: 0.4035232, y: 0.26421237, z: -0.37329772, w: -0.79247063}
+  m_LocalPosition: {x: 0.251, y: 0.535, z: 0.023}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1184,6 +1184,7 @@ MonoBehaviour:
   magicWeaponHolder: {fileID: 1395630449}
   weapon: {fileID: 3802249186437252854, guid: 4f54838159ef99a499ade0215029696e, type: 3}
   weaponSheath: {fileID: 1601389489}
+  rotationSpeed: 5
 --- !u!114 &1921592214
 MonoBehaviour:
   m_ObjectHideFlags: 0
