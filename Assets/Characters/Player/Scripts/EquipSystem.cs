@@ -7,7 +7,8 @@ public class EquipSystem : MonoBehaviour
 
     [Header("Weapon and Holders")]
     public GameObject meleeWeaponHolder;
-    public GameObject magicWeaponHolder;
+    public GameObject magicHandWeaponHolder;
+    public GameObject magicSpineWeaponHolder;
     public GameObject weapon;
     public GameObject weaponSheath;
 
@@ -16,6 +17,7 @@ public class EquipSystem : MonoBehaviour
     private Animator _animator;
     public float rotationSpeed = 1;
     private Quaternion zeroRotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
+    private Rigidbody thrownWep;
 
     void Start()
     {
@@ -35,8 +37,7 @@ public class EquipSystem : MonoBehaviour
 
             if (_animator.GetBool("magicMode"))
             {
-                Debug.Log("fire");
-                currentWepHand = Instantiate(weapon, magicWeaponHolder.transform);
+                currentWepHand = Instantiate(weapon, magicHandWeaponHolder.transform);
                 Destroy(currentWepSheath);
             }
         } 
@@ -69,25 +70,21 @@ public class EquipSystem : MonoBehaviour
     public void WepIsNotMagicBlocking()
     {
         _animator.SetBool("isMagicBlocking", false);
-        currentWepHand.transform.rotation = zeroRotation;
+        currentWepHand.transform.rotation = zeroRotation; //return currentWep to original rotation
     }
 
     public void WepRotateWithCam(float xRotation, float yRotation)
     {
         if (_animator.GetBool("magicMode") && _animator.GetBool("isMagicBlocking") == false)
         {
-            magicWeaponHolder.transform.rotation = Quaternion.Euler(0, xRotation, 0);
+            magicHandWeaponHolder.transform.rotation = Quaternion.Euler(0, xRotation, 0);
         }
 
         if (_animator.GetBool("magicMode") && _animator.GetBool("isMagicBlocking") == true)
         {
-            
-            magicWeaponHolder.transform.rotation = Quaternion.Euler(90, xRotation, -180);
-            currentWepHand.transform.Rotate(Vector3.up, 15.0f);
-
+            magicHandWeaponHolder.transform.rotation = Quaternion.Euler(90, xRotation, -180); //rotates with camera but changes orientation of wep to face down
+            currentWepHand.transform.Rotate(Vector3.up, 15.0f); //rotate wep around y-axis
         }
-
-
     }
 
     public void MagicBlock()
@@ -97,4 +94,19 @@ public class EquipSystem : MonoBehaviour
 
         }
     }
+
+    public void ThrowWep()
+    {
+        if (currentWepHand != null)
+        {
+            currentWepHand.transform.parent = null;
+            currentWepHand.AddComponent(typeof(Rigidbody));
+            thrownWep = currentWepHand.GetComponent(typeof(Rigidbody)) as Rigidbody;
+            thrownWep.AddForce(Vector3.forward*3000.0f, ForceMode.Force);
+
+            
+        }
+       
+    }
+
 }

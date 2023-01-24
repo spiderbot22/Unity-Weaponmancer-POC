@@ -717,7 +717,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1395630450}
   m_Layer: 0
-  m_Name: MagicWeaponHolder
+  m_Name: MagicHandWeaponHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -800,6 +800,11 @@ Transform:
   m_Father: {fileID: 1259368111}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: -27.802, y: -96.077, z: -73.085}
+--- !u!4 &1770721730 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -3480699329000672020, guid: d59fdc1eddaf209428a8d1742b84aaf4, type: 3}
+  m_PrefabInstance: {fileID: 1798335765}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1791990176
 GameObject:
   m_ObjectHideFlags: 0
@@ -1181,7 +1186,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meleeWeaponHolder: {fileID: 1659637685}
-  magicWeaponHolder: {fileID: 1395630449}
+  magicHandWeaponHolder: {fileID: 1395630449}
+  magicSpineWeaponHolder: {fileID: 2113736822}
   weapon: {fileID: 3802249186437252854, guid: 4f54838159ef99a499ade0215029696e, type: 3}
   weaponSheath: {fileID: 1601389489}
   rotationSpeed: 5
@@ -1228,4 +1234,35 @@ Transform:
   - {fileID: 658631521}
   m_Father: {fileID: 0}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2113736822
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2113736823}
+  m_Layer: 0
+  m_Name: MagicSpineWeaponHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2113736823
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2113736822}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.724, y: 0.761, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1770721730}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
