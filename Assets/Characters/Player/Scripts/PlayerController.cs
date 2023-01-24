@@ -202,7 +202,6 @@ public class PlayerController : MonoBehaviour
         {
             tempSpeed = moveSpeed;
             _animator.SetTrigger("blockTrigger");
-            _animator.SetBool("isBlocking", true);
             moveSpeed = 0;
             lookSensitivity = 0.1f;
         }
@@ -210,7 +209,6 @@ public class PlayerController : MonoBehaviour
         if (context.canceled && _animator.GetBool("inCombat"))
         {
             _animator.SetTrigger("blockTrigger");
-            _animator.SetBool("isBlocking", false);
             moveSpeed = tempSpeed;
             lookSensitivity = lookSensitivityDefault;
         }

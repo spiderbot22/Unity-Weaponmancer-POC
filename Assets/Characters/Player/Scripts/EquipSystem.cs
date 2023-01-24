@@ -59,6 +59,16 @@ public class EquipSystem : MonoBehaviour
         _animator.SetBool("inCombat", false);
     }
 
+    public void WepIsMagicBlocking()
+    {
+        _animator.SetBool("isMagicBlocking", true);
+    }
+
+    public void WepIsNotMagicBlocking()
+    {
+        _animator.SetBool("isMagicBlocking", false);
+    }
+
     public void WepRotateWithCam(float xRotation, float yRotation)
     {
         if (_animator.GetBool("magicMode"))
