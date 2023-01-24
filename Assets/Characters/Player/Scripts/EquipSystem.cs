@@ -59,4 +59,19 @@ public class EquipSystem : MonoBehaviour
         _animator.SetBool("inCombat", false);
     }
 
+    public void WepRotateWithCam(float xRotation, float yRotation)
+    {
+        if (_animator.GetBool("magicMode"))
+        {
+            magicWeaponHolder.transform.rotation = Quaternion.Euler(0, xRotation, 0);
+        }
+    }
+
+    public void MagicBlock()
+    {
+        if (_animator.GetBool("isBlocking")) 
+        {
+
+        }
+    }
 }

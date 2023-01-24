@@ -105,6 +105,7 @@ public class PlayerController : MonoBehaviour
         xRotation += mouseX;
 
         _rigidBody.rotation = Quaternion.Euler(0, xRotation, 0);
+        es.WepRotateWithCam(xRotation, yRotation); //rotate magicWeaponHolder for Magic Mode
     }
 
     public void OnWalk(InputAction.CallbackContext context)
@@ -201,12 +202,14 @@ public class PlayerController : MonoBehaviour
         {
             tempSpeed = moveSpeed;
             _animator.SetTrigger("blockTrigger");
+            _animator.SetBool("isBlocking", true);
             moveSpeed = 0;
         }
 
         if (context.canceled && _animator.GetBool("inCombat"))
         {
             _animator.SetTrigger("blockTrigger");
+            _animator.SetBool("isBlocking", false);
             moveSpeed = tempSpeed;
         }
     }
