@@ -11,6 +11,7 @@ public class EquipSystem : MonoBehaviour
     public GameObject magicSpineWeaponHolder;
     public GameObject weapon;
     public GameObject weaponSheath;
+    public PlayerController pc;
 
     private GameObject currentWepHand;
     private GameObject currentWepSheath;
@@ -18,6 +19,7 @@ public class EquipSystem : MonoBehaviour
     public float rotationSpeed = 1;
     private Quaternion zeroRotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
     private Rigidbody thrownWep;
+    private Vector3 moveDirection;
 
     void Start()
     {
@@ -102,7 +104,7 @@ public class EquipSystem : MonoBehaviour
             currentWepHand.transform.parent = null;
             currentWepHand.AddComponent(typeof(Rigidbody));
             thrownWep = currentWepHand.GetComponent(typeof(Rigidbody)) as Rigidbody;
-            thrownWep.AddForce(Vector3.forward*3000.0f, ForceMode.Force);
+            thrownWep.AddForce(pc.orientation.forward*3000.0f, ForceMode.Force);
 
             
         }

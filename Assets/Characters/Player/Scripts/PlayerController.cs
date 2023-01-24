@@ -23,8 +23,9 @@ public class PlayerController : MonoBehaviour
     public float groundDistance = 0.4f;
     public LayerMask whatIsGround;
     bool grounded;
-    
-    private Vector3 moveDirection;
+
+    [HideInInspector]
+    public Vector3 moveDirection;
     private Vector3 moveDirectionSprint;
     private Vector2 moveVector;
     private Rigidbody _rigidBody;
@@ -66,12 +67,11 @@ public class PlayerController : MonoBehaviour
 
     public void Move()
     {
-
         Vector3 movement = new Vector3(moveVector.x, 0f, moveVector.y);
         moveDirection = orientation.forward * moveVector.y + orientation.right * moveVector.x;
         moveDirectionSprint = orientation.forward * moveVector.y; //for disabling horizontal movement when sprinting
-
         /*Animating*/
+        Debug.Log(orientation.forward);
 
         //grab forward/back and left/right velocity to pass to animator vars
         float velocityZ = Vector3.Dot(moveDirection.normalized, transform.forward);
