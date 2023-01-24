@@ -16,7 +16,7 @@ public class EquipSystem : MonoBehaviour
     private GameObject currentWepHand;
     private GameObject currentWepSheath;
     private Animator _animator;
-    public float rotationSpeed = 1;
+    public float magicBlockWepRotationSpeed = 30.0f;
     private Quaternion zeroRotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
     private Rigidbody thrownWep;
     private Vector3 moveDirection;
@@ -85,7 +85,7 @@ public class EquipSystem : MonoBehaviour
         if (_animator.GetBool("magicMode") && _animator.GetBool("isMagicBlocking") == true)
         {
             magicHandWeaponHolder.transform.rotation = Quaternion.Euler(90, xRotation, -180); //rotates with camera but changes orientation of wep to face down
-            currentWepHand.transform.Rotate(Vector3.up, 15.0f); //rotate wep around y-axis
+            currentWepHand.transform.Rotate(Vector3.up, magicBlockWepRotationSpeed); //rotate wep around y-axis
         }
     }
 
