@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     private float tempSpeed;
     public float groundDrag;
     public float lookSensitivity = 5;
-    private float lookSensitivityTemp;
+    private float lookSensitivityDefault;
     public Transform orientation;
 
     [Header("Ground Check")]
@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
         _animator = GetComponent<Animator>();
         _rigidBody = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked; //remove cursor
-        lookSensitivityTemp = lookSensitivity;
+        lookSensitivityDefault = lookSensitivity;
     }
 
     // Update is called once per frame
@@ -145,7 +145,7 @@ public class PlayerController : MonoBehaviour
             _animator.SetBool("isJogging", true);
             _animator.SetBool("isSprinting", false);
             moveSpeed = jogSpeed;
-            lookSensitivity = lookSensitivityTemp; //return look sens to default
+            lookSensitivity = lookSensitivityDefault; //return look sens to default
         }
 
     }
@@ -204,6 +204,7 @@ public class PlayerController : MonoBehaviour
             _animator.SetTrigger("blockTrigger");
             _animator.SetBool("isBlocking", true);
             moveSpeed = 0;
+            lookSensitivity = 0.1f;
         }
 
         if (context.canceled && _animator.GetBool("inCombat"))
@@ -211,6 +212,7 @@ public class PlayerController : MonoBehaviour
             _animator.SetTrigger("blockTrigger");
             _animator.SetBool("isBlocking", false);
             moveSpeed = tempSpeed;
+            lookSensitivity = lookSensitivityDefault;
         }
     }
 
