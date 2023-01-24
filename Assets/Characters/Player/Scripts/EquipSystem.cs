@@ -11,7 +11,7 @@ public class EquipSystem : MonoBehaviour
     public GameObject magicSpineWeaponHolder;
     public GameObject weapon;
     public GameObject weaponSheath;
-    public PlayerController pc;
+    public Transform player;
 
     private GameObject currentWepHand;
     private GameObject currentWepSheath;
@@ -104,7 +104,7 @@ public class EquipSystem : MonoBehaviour
             currentWepHand.transform.parent = null;
             currentWepHand.AddComponent(typeof(Rigidbody));
             thrownWep = currentWepHand.GetComponent(typeof(Rigidbody)) as Rigidbody;
-            thrownWep.AddForce(pc.orientation.forward*3000.0f, ForceMode.Force);
+            thrownWep.AddForce(player.forward*3000.0f, ForceMode.Force);
 
             
         }
