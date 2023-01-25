@@ -8,6 +8,7 @@ public class CameraController : MonoBehaviour
 
     private CinemachineComposer composer;
     public PlayerController pc;
+    public GameObject playerHead;
 
     void Start()
     {
@@ -19,5 +20,6 @@ public class CameraController : MonoBehaviour
         float vertical = pc.mouseY * 0.01f;
         composer.m_TrackedObjectOffset.y += vertical;
         composer.m_TrackedObjectOffset.y = Mathf.Clamp(composer.m_TrackedObjectOffset.y, -1, 1);
+        playerHead.transform.rotation = composer.transform.rotation;
     }
 }

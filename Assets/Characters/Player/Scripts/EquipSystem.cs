@@ -107,9 +107,9 @@ public class EquipSystem : MonoBehaviour
             currentWepHand.transform.parent = null;
             currentWepHand.AddComponent(typeof(Rigidbody));
             thrownWep = currentWepHand.GetComponent(typeof(Rigidbody)) as Rigidbody;
-            thrownWep.AddForce(player.forward*3000.0f, ForceMode.Force);
+            thrownWep.AddForce(ray.direction * 3000.0f, ForceMode.Force);
 
-            
+
         }
        
     }
