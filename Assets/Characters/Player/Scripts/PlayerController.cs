@@ -106,7 +106,7 @@ public class PlayerController : MonoBehaviour
         xRotation += mouseX;
 
         _rigidBody.rotation = Quaternion.Euler(0, xRotation, 0);
-        es.WepRotateWithCam(xRotation, yRotation); //rotate magicWeaponHolder for Magic Mode
+        es.WepRotateWithCam(xRotation, mouseY); //rotate magicWeaponHolder for Magic Mode
     }
 
     public void OnWalk(InputAction.CallbackContext context)

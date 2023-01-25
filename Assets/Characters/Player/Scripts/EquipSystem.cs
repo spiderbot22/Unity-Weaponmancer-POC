@@ -19,7 +19,6 @@ public class EquipSystem : MonoBehaviour
     public float magicBlockWepRotationSpeed = 30.0f;
     private Quaternion zeroRotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
     private Rigidbody thrownWep;
-    private Vector3 moveDirection;
 
     void Start()
     {
@@ -79,21 +78,14 @@ public class EquipSystem : MonoBehaviour
     {
         if (_animator.GetBool("magicMode") && _animator.GetBool("isMagicBlocking") == false)
         {
-            magicHandWeaponHolder.transform.rotation = Quaternion.Euler(0, xRotation, 0);
+           magicHandWeaponHolder.transform.rotation = Quaternion.Euler(yRotation, xRotation, 0);
         }
 
+        //rotate weapon horizontally when blocking
         if (_animator.GetBool("magicMode") && _animator.GetBool("isMagicBlocking") == true)
         {
             magicHandWeaponHolder.transform.rotation = Quaternion.Euler(90, xRotation, -180); //rotates with camera but changes orientation of wep to face down
             currentWepHand.transform.Rotate(Vector3.up, magicBlockWepRotationSpeed); //rotate wep around y-axis
-        }
-    }
-
-    public void MagicBlock()
-    {
-        if (_animator.GetBool("isBlocking")) 
-        {
-
         }
     }
 
@@ -108,7 +100,7 @@ public class EquipSystem : MonoBehaviour
             currentWepHand.AddComponent(typeof(Rigidbody));
             thrownWep = currentWepHand.GetComponent(typeof(Rigidbody)) as Rigidbody;
             thrownWep.AddForce(ray.direction * 3000.0f, ForceMode.Force);
-
+            
 
         }
        
