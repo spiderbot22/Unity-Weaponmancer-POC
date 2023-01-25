@@ -32,7 +32,8 @@ public class PlayerController : MonoBehaviour
     private Animator _animator;
     private Vector2 lookVector;
     private float mouseX;
-    private float mouseY;
+    [HideInInspector]
+    public float mouseY;
     private float xRotation;
     private float yRotation;
     public Attack attack; //instance of Attack class
@@ -101,7 +102,7 @@ public class PlayerController : MonoBehaviour
         mouseX = lookVector.x * Time.deltaTime * lookSensitivity;
         mouseY = lookVector.y * Time.deltaTime * lookSensitivity;
 
-        yRotation += mouseX;
+        yRotation += mouseY;
         xRotation += mouseX;
 
         _rigidBody.rotation = Quaternion.Euler(0, xRotation, 0);

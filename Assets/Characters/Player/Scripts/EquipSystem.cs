@@ -101,6 +101,9 @@ public class EquipSystem : MonoBehaviour
     {
         if (currentWepHand != null)
         {
+            Ray ray = Camera.main.ViewportPointToRay(Vector3.one * 0.5f);
+            Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 2f);
+
             currentWepHand.transform.parent = null;
             currentWepHand.AddComponent(typeof(Rigidbody));
             thrownWep = currentWepHand.GetComponent(typeof(Rigidbody)) as Rigidbody;
