@@ -71,8 +71,8 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = new Vector3(moveVector.x, 0f, moveVector.y);
         moveDirection = orientation.forward * moveVector.y + orientation.right * moveVector.x;
         moveDirectionSprint = orientation.forward * moveVector.y; //for disabling horizontal movement when sprinting
+       
         /*Animating*/
-        Debug.Log(orientation.forward);
 
         //grab forward/back and left/right velocity to pass to animator vars
         float velocityZ = Vector3.Dot(moveDirection.normalized, transform.forward);
@@ -106,7 +106,7 @@ public class PlayerController : MonoBehaviour
         xRotation += mouseX;
 
         _rigidBody.rotation = Quaternion.Euler(0, xRotation, 0);
-        es.WepRotateWithCam(xRotation, mouseY); //rotate magicWeaponHolder for Magic Mode
+        es.WepRotateWithCam(xRotation, yRotation); //rotate magicWeaponHolder for Magic Mode
     }
 
     public void OnWalk(InputAction.CallbackContext context)

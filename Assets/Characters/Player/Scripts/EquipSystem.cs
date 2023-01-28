@@ -19,15 +19,23 @@ public class EquipSystem : MonoBehaviour
     public float magicBlockWepRotationSpeed = 30.0f;
     private Quaternion zeroRotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
     private Rigidbody thrownWep;
+    Ray ray;
 
     void Start()
     {
         currentWepSheath = Instantiate(weapon, weaponSheath.transform);
         _animator = GetComponent<Animator>();
+        
     }
 
-    public void DrawWeapon()
+    public void Update()
     {
+        ray = Camera.main.ViewportPointToRay(Vector3.one * 0.5f);
+        Debug.Log(ray.direction);
+    }
+    
+    public void DrawWeapon()
+    { /*
         if (currentWepHand == null && currentWepSheath != null)
         {
             if (_animator.GetBool("meleeMode")) 
@@ -42,17 +50,17 @@ public class EquipSystem : MonoBehaviour
                 Destroy(currentWepSheath);
             }
         } 
-    }
+    */}
 
     public void SheathWeapon()
-    {
+    {/*
         if (currentWepHand != null && currentWepSheath == null)
         {
             currentWepSheath = Instantiate(weapon, weaponSheath.transform);
             Destroy(currentWepHand);
         }
-    }
-
+    */}
+    
     public void WepIsDrawn()
     {
         _animator.SetBool("inCombat", true);
@@ -78,7 +86,7 @@ public class EquipSystem : MonoBehaviour
     {
         if (_animator.GetBool("magicMode") && _animator.GetBool("isMagicBlocking") == false)
         {
-           magicHandWeaponHolder.transform.rotation = Quaternion.Euler(yRotation, xRotation, 0);
+           magicHandWeaponHolder.transform.rotation = Quaternion.Euler(-yRotation, xRotation, 0);
         }
 
         //rotate weapon horizontally when blocking
@@ -93,7 +101,6 @@ public class EquipSystem : MonoBehaviour
     {
         if (currentWepHand != null)
         {
-            Ray ray = Camera.main.ViewportPointToRay(Vector3.one * 0.5f);
             Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 2f);
 
             currentWepHand.transform.parent = null;
