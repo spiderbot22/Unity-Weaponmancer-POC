@@ -12,7 +12,8 @@ public class CollisionDetection : MonoBehaviour
         if (gameObject.GetComponent<Rigidbody>() != null && collision.gameObject.tag == "Wood")
         {
             weaponRB = gameObject.GetComponent(typeof(Rigidbody)) as Rigidbody;
-            weaponRB.constraints = RigidbodyConstraints.FreezeAll;
+            //weaponRB.constraints = RigidbodyConstraints.FreezeAll;
+            weaponRB.isKinematic = true;
 
         }
     }
