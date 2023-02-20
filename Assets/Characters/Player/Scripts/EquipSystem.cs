@@ -18,7 +18,7 @@ public class EquipSystem : MonoBehaviour
     private Animator _animator;
     public float magicBlockWepRotationSpeed = 30.0f;
     private Quaternion zeroRotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
-    private Rigidbody thrownWep;
+    private Rigidbody thrownWepRB;
     Ray ray;
 
     void Start()
@@ -35,7 +35,7 @@ public class EquipSystem : MonoBehaviour
     }
     
     public void DrawWeapon()
-    { /*
+    { 
         if (currentWepHand == null && currentWepSheath != null)
         {
             if (_animator.GetBool("meleeMode")) 
@@ -50,16 +50,16 @@ public class EquipSystem : MonoBehaviour
                 Destroy(currentWepSheath);
             }
         } 
-    */}
+    }
 
     public void SheathWeapon()
-    {/*
+    {
         if (currentWepHand != null && currentWepSheath == null)
         {
             currentWepSheath = Instantiate(weapon, weaponSheath.transform);
             Destroy(currentWepHand);
         }
-    */}
+    }
     
     public void WepIsDrawn()
     {
@@ -99,15 +99,14 @@ public class EquipSystem : MonoBehaviour
 
     public void ThrowWep()
     {
-        if (currentWepHand != null)
+        if (currentWepHand.GetComponent(typeof(Rigidbody)) == null)
         {
-            Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 2f);
+            Debug.DrawRay(magicHandWeaponHolder.transform.position, ray.direction * 100, Color.red, 2f);
 
             currentWepHand.transform.parent = null;
             currentWepHand.AddComponent(typeof(Rigidbody));
-            thrownWep = currentWepHand.GetComponent(typeof(Rigidbody)) as Rigidbody;
-            thrownWep.AddForce(ray.direction * 3000.0f, ForceMode.Force);
-            
+            thrownWepRB = currentWepHand.GetComponent(typeof(Rigidbody)) as Rigidbody;
+            thrownWepRB.AddForce(ray.direction * 3000.0f, ForceMode.Force);
 
         }
        
