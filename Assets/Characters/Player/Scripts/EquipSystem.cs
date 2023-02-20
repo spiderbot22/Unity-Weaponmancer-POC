@@ -30,8 +30,7 @@ public class EquipSystem : MonoBehaviour
 
     public void Update()
     {
-        ray = Camera.main.ViewportPointToRay(Vector3.one * 0.5f);
-        Debug.Log(ray.direction);
+        
     }
     
     public void DrawWeapon()
@@ -82,11 +81,12 @@ public class EquipSystem : MonoBehaviour
         currentWepHand.transform.rotation = zeroRotation; //return currentWep to original rotation
     }
 
-    public void WepRotateWithCam(float xRotation, float yRotation)
+    public void WepRotateWithCam(float xRotation, float yRotation) //called from PlayerController
     {
         if (_animator.GetBool("magicMode") && _animator.GetBool("isMagicBlocking") == false)
         {
-           magicHandWeaponHolder.transform.rotation = Quaternion.Euler(-yRotation, xRotation, 0);
+            //magicHandWeaponHolder.transform.rotation = Quaternion.Euler(-yRotation, xRotation, 0);
+            magicHandWeaponHolder.transform.rotation = Quaternion.Euler(ray.direction.x, xRotation, 0);
         }
 
         //rotate weapon horizontally when blocking
@@ -101,7 +101,9 @@ public class EquipSystem : MonoBehaviour
     {
         if (currentWepHand.GetComponent(typeof(Rigidbody)) == null)
         {
-            Debug.DrawRay(magicHandWeaponHolder.transform.position, ray.direction * 100, Color.red, 2f);
+            //ray = Camera.main.ViewportPointToRay(Vector3.one * 0.5f);
+            ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+            Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 2f);
 
             currentWepHand.transform.parent = null;
             currentWepHand.AddComponent(typeof(Rigidbody));
