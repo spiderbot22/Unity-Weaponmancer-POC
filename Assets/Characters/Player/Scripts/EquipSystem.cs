@@ -12,14 +12,15 @@ public class EquipSystem : MonoBehaviour
     public GameObject weapon;
     public GameObject weaponSheath;
     public Transform player;
+    public LayerMask layersToHit;
 
+    private float maxDistance = 100;
     private GameObject currentWepHand;
     private GameObject currentWepSheath;
     private Animator _animator;
     public float magicBlockWepRotationSpeed = 30.0f;
     private Quaternion zeroRotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
     private Rigidbody thrownWepRB;
-    Ray ray;
 
     void Start()
     {
@@ -86,7 +87,7 @@ public class EquipSystem : MonoBehaviour
         if (_animator.GetBool("magicMode") && _animator.GetBool("isMagicBlocking") == false)
         {
             //magicHandWeaponHolder.transform.rotation = Quaternion.Euler(-yRotation, xRotation, 0);
-            magicHandWeaponHolder.transform.rotation = Quaternion.Euler(ray.direction.x, xRotation, 0);
+            magicHandWeaponHolder.transform.rotation = Quaternion.Euler(0, xRotation, 0);
         }
 
         //rotate weapon horizontally when blocking
@@ -101,14 +102,21 @@ public class EquipSystem : MonoBehaviour
     {
         if (currentWepHand.GetComponent(typeof(Rigidbody)) == null)
         {
-            //ray = Camera.main.ViewportPointToRay(Vector3.one * 0.5f);
-            ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-            Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 2f);
+
+            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, maxDistance, layersToHit))
+            {
+                Debug.DrawRay(ray.origin, hit.point * 100, Color.red, 2f);
+                //Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 2f);
+                Debug.Log(hit.collider.gameObject.name + "was hit");
+            }
 
             currentWepHand.transform.parent = null;
             currentWepHand.AddComponent(typeof(Rigidbody));
             thrownWepRB = currentWepHand.GetComponent(typeof(Rigidbody)) as Rigidbody;
-            thrownWepRB.AddForce(ray.direction * 3000.0f, ForceMode.Force);
+            thrownWepRB.AddForce(hit.point * 500.0f, ForceMode.Force);
 
         }
        

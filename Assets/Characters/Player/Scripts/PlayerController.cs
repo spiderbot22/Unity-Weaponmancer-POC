@@ -183,7 +183,6 @@ public class PlayerController : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        Debug.Log(context.phase);
 
         if (context.performed && _animator.GetBool("inCombat"))
         {
