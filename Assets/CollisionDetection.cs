@@ -4,17 +4,15 @@ using UnityEngine;
 
 public class CollisionDetection : MonoBehaviour
 {
-    public GameObject gameObject;
+    public GameObject weapon;
     private Rigidbody weaponRB;
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (gameObject.GetComponent<Rigidbody>() != null && collision.gameObject.tag == "Wood")
+        if (weapon.GetComponent<Rigidbody>() != null && collision.gameObject.tag == "Wood")
         {
-            weaponRB = gameObject.GetComponent(typeof(Rigidbody)) as Rigidbody;
-            //weaponRB.constraints = RigidbodyConstraints.FreezeAll;
+            weaponRB = weapon.GetComponent<Rigidbody>();
             weaponRB.isKinematic = true;
-
         }
     }
 }

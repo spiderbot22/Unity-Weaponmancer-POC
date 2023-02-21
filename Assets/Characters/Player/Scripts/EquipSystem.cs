@@ -12,13 +12,16 @@ public class EquipSystem : MonoBehaviour
     public GameObject weapon;
     public GameObject weaponSheath;
     public Transform player;
+
+    [Header("Weapon Throwing and Blocking")]
     public LayerMask layersToHit;
+    public float throwForce;
+ public float magicBlockWepRotationSpeed = 30.0f;
 
     private float maxDistance = 100;
     private GameObject currentWepHand;
     private GameObject currentWepSheath;
     private Animator _animator;
-    public float magicBlockWepRotationSpeed = 30.0f;
     private Quaternion zeroRotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
     private Rigidbody thrownWepRB;
 
@@ -103,20 +106,21 @@ public class EquipSystem : MonoBehaviour
         if (currentWepHand.GetComponent(typeof(Rigidbody)) == null)
         {
 
-            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); //create ray from center of screen
             RaycastHit hit;
+            Vector3 forceDirection = Camera.main.transform.forward;
 
             if (Physics.Raycast(ray, out hit, maxDistance, layersToHit))
             {
-                Debug.DrawRay(ray.origin, hit.point * 100, Color.red, 2f);
-                //Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 2f);
-                Debug.Log(hit.collider.gameObject.name + "was hit");
+                forceDirection = (hit.point - currentWepHand.transform.position).normalized; //adjust hit point with weapon position before throw
             }
 
-            currentWepHand.transform.parent = null;
-            currentWepHand.AddComponent(typeof(Rigidbody));
-            thrownWepRB = currentWepHand.GetComponent(typeof(Rigidbody)) as Rigidbody;
-            thrownWepRB.AddForce(hit.point * 500.0f, ForceMode.Force);
+            Vector3 forceToAdd = forceDirection * throwForce + transform.up; //Calculate direction multiplied by force
+
+            currentWepHand.transform.parent = null; //unparent weapon
+            currentWepHand.AddComponent<Rigidbody>();
+            thrownWepRB = currentWepHand.GetComponent<Rigidbody>();
+            thrownWepRB.AddForce(forceToAdd, ForceMode.Impulse);
 
         }
        
