@@ -78,6 +78,18 @@ public class Attack : MonoBehaviour
         _animator.applyRootMotion = false;
     }
 
+    public void ChangeAnimSpeed()
+    {
+        Debug.Log(_animator.speed);
+        if (_animator.speed == 1)
+        {
+            _animator.speed = 1.5f;
+        } 
+        else
+        {
+            _animator.speed = 1;
+        }
+    }
 
 
 
