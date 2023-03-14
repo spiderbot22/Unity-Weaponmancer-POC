@@ -80,7 +80,6 @@ public class Attack : MonoBehaviour
 
     public void ChangeAnimSpeed()
     {
-        Debug.Log(_animator.speed);
         if (_animator.speed == 1)
         {
             _animator.speed = 1.5f;

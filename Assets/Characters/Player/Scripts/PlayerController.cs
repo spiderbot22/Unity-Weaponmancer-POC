@@ -220,6 +220,7 @@ public class PlayerController : MonoBehaviour
         {
             _animator.SetBool("meleeMode", true);
             _animator.SetBool("magicMode", false);
+            _animator.SetTrigger("meleeModeTrigger");
         }
     }
 
@@ -229,6 +230,7 @@ public class PlayerController : MonoBehaviour
         {
             _animator.SetBool("meleeMode", false);
             _animator.SetBool("magicMode", true);
+            _animator.SetTrigger("magicModeTrigger");
         }
     }
 
