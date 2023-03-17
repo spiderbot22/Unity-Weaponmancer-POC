@@ -222,7 +222,7 @@ public class PlayerController : MonoBehaviour
             _animator.SetBool("magicMode", false);
 
             //set trigger only when in magic locomotion animation state
-            if (_animator.GetCurrentAnimatorStateInfo(1).IsName("Locomotion-Magic-Walk"))
+            if (_animator.GetCurrentAnimatorStateInfo(0).IsTag("magicIdle"))
             {
                 _animator.SetTrigger("meleeModeTrigger");
             }
@@ -238,9 +238,10 @@ public class PlayerController : MonoBehaviour
             _animator.SetBool("magicMode", true);
 
             //set trigger only when in melee locomotion animation state
-            if (_animator.GetCurrentAnimatorStateInfo(1).IsName("Locomotion-Greatsword-Walk"))
+            if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Locomotion-Greatsword-Walk"))
             {
                 _animator.SetTrigger("magicModeTrigger");
+                Debug.Log("hmm");
             }
 
         }
