@@ -241,7 +241,6 @@ public class PlayerController : MonoBehaviour
             if (_animator.GetCurrentAnimatorStateInfo(1).IsName("Locomotion-Greatsword-Walk"))
             {
                 _animator.SetTrigger("magicModeTrigger");
-                Debug.Log("hmm");
             }
 
         }

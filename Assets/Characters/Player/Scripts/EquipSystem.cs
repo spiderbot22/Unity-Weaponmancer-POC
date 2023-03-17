@@ -16,7 +16,7 @@ public class EquipSystem : MonoBehaviour
     [Header("Weapon Throwing and Blocking")]
     public LayerMask layersToHit;
     public float throwForce;
- public float magicBlockWepRotationSpeed = 30.0f;
+    public float magicBlockWepRotationSpeed = 30.0f;
 
     private float maxDistance = 100;
     private GameObject currentWepHand;
@@ -37,6 +37,11 @@ public class EquipSystem : MonoBehaviour
         
     }
     
+    public void SwapHolder()
+    {
+        
+    }
+
     public void DrawWeapon()
     { 
         if (currentWepHand == null && currentWepSheath != null)
