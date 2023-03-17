@@ -37,6 +37,22 @@ public class EquipSystem : MonoBehaviour
         
     }
     
+    public void SwapHolder()
+    {
+        if (_animator.GetBool("meleeMode"))
+        {
+            Destroy(currentWepHand);
+            currentWepHand = Instantiate(weapon, meleeWeaponHolder.transform);
+        }
+
+        if (_animator.GetBool("magicMode"))
+        {
+            Destroy(currentWepHand);
+            currentWepHand = Instantiate(weapon, magicHandWeaponHolder.transform);
+        }
+
+    }
+
     public void DrawWeapon()
     { 
         if (currentWepHand == null && currentWepSheath != null)

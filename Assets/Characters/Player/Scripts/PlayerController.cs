@@ -225,6 +225,7 @@ public class PlayerController : MonoBehaviour
             if (_animator.GetCurrentAnimatorStateInfo(1).IsName("Locomotion-Magic-Walk"))
             {
                 _animator.SetTrigger("meleeModeTrigger");
+                es.SwapHolder();
             }
 
         }
@@ -241,6 +242,7 @@ public class PlayerController : MonoBehaviour
             if (_animator.GetCurrentAnimatorStateInfo(1).IsName("Locomotion-Greatsword-Walk"))
             {
                 _animator.SetTrigger("magicModeTrigger");
+                es.SwapHolder();
             }
 
         }
