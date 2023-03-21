@@ -202,8 +202,8 @@ public class PlayerController : MonoBehaviour
         {
             tempSpeed = moveSpeed;
             _animator.SetTrigger("blockTrigger");
-            moveSpeed = 0;
-            lookSensitivity = 0.1f;
+            moveSpeed = walkSpeed;
+            lookSensitivity = 1.0f;
         }
 
         if (context.canceled && _animator.GetBool("inCombat"))
@@ -225,7 +225,7 @@ public class PlayerController : MonoBehaviour
             if (_animator.GetCurrentAnimatorStateInfo(1).IsName("Locomotion-Magic-Walk"))
             {
                 _animator.SetTrigger("meleeModeTrigger");
-                es.SwapHolder();
+                es.SwapHolder(); //move weapon from floating over hand to in hand
             }
 
         }
@@ -242,7 +242,7 @@ public class PlayerController : MonoBehaviour
             if (_animator.GetCurrentAnimatorStateInfo(1).IsName("Locomotion-Greatsword-Walk"))
             {
                 _animator.SetTrigger("magicModeTrigger");
-                es.SwapHolder();
+                es.SwapHolder(); //move weapon from in hand to floating above hand
             }
 
         }
