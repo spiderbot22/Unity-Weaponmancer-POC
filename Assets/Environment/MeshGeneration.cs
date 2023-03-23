@@ -31,7 +31,8 @@ public class MeshGeneration : MonoBehaviour
         {
             for (int x = 0; x <= xSize ; x++)
             {
-                vertices[i] = new Vector3(x, 1, z);
+                float y = Mathf.PerlinNoise(x * 0.1f, z * 0.1f) * 2f; //generate varied heights with perlin noise algorythm
+                vertices[i] = new Vector3(x, y, z);
                 i++;
             }
         }
@@ -76,24 +77,5 @@ public class MeshGeneration : MonoBehaviour
 
         mesh.RecalculateNormals(); //fix lighting
     }
-
-    private void OnDrawGizmos()
-    {
-
-        if (vertices == null)
-        {
-            return;
-        }
-
-        for (int i = 0; i < vertices.Length; i++)
-        {
-            Gizmos.DrawSphere(vertices[i], 0.1f);
-        }
-    }
-
-
-
-
-
 
 }
