@@ -39,23 +39,30 @@ public class MeshGeneration : MonoBehaviour
         //Generate total triangles
         triangles = new int[xSize * zSize * 6];
         int tris = 0;
+        int vert = 0;
 
         //Generate grid of triangles
-        for (int vert = 0, x = 0; x < xSize; x++, vert++)
+
+        for (int z = 0; z < zSize; z++)
         {
-            /*
-             * Add tris to each array element to shift to the next set of triangles per loop
-             * Add vert to each equation to shift to the next set of vertices
-             */
+            for (int x = 0; x < xSize; x++)
+            {
+                /*
+                 * Add tris to each array element to shift to the next set of triangles per loop
+                 * Add vert to each equation to shift to the next set of vertices
+                 */
 
-            triangles[tris + 0] = vert + 0;
-            triangles[tris + 1] = vert + xSize + 1;
-            triangles[tris + 2] = vert + 1;
-            triangles[tris + 3] = vert + 1;
-            triangles[tris + 4] = vert + xSize + 1;
-            triangles[tris + 5] = vert + xSize + 2;
+                triangles[tris + 0] = vert + 0;
+                triangles[tris + 1] = vert + xSize + 1;
+                triangles[tris + 2] = vert + 1;
+                triangles[tris + 3] = vert + 1;
+                triangles[tris + 4] = vert + xSize + 1;
+                triangles[tris + 5] = vert + xSize + 2;
 
-            tris += 6;
+                vert++;
+                tris += 6;
+            }
+            vert++; //so script skips generating triangles from the end of one row to the beginning of another
         }
 
     }
