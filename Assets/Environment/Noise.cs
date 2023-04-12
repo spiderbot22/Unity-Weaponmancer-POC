@@ -17,7 +17,6 @@ public static class Noise
 
         for (int y = 0; y < mapHeight; y++)
         {
-
             for (int x = 0; x < mapWidth; x++)
             {
                 float sampleX = x / noiseScale;
@@ -26,7 +25,6 @@ public static class Noise
                 float perlinVal = Mathf.PerlinNoise(sampleX, sampleY);
                 noiseMap[x, y] = perlinVal;
             }
-
         }
 
         return noiseMap;
