@@ -42,8 +42,7 @@ public class MeshGeneration : MonoBehaviour
         int tris = 0;
         int vert = 0;
 
-        //Generate grid of triangles
-
+        //Generate grid of triangles  
         for (int z = 0; z < zSize; z++)
         {
             for (int x = 0; x < xSize; x++)
