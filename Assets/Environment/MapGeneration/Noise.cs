@@ -28,6 +28,10 @@ public static class Noise
         float maxNoiseHeight = float.MinValue;
         float minNoiseHeight = float.MaxValue;
 
+        //find center of screen for noise scale
+        float halfWidth = mapWidth / 2f;
+        float halfHeight = mapHeight / 2f;
+
         for (int y = 0; y < mapHeight; y++)
         {
             for (int x = 0; x < mapWidth; x++)
@@ -41,8 +45,8 @@ public static class Noise
                 {
 
                     //higher the frequency, the more spread out the sample points and height values will change more rapidly
-                    float sampleX = x / noiseScale * frequency + octaveOffsets[i].x;
-                    float sampleY = y / noiseScale * frequency + octaveOffsets[i].y;
+                    float sampleX = (x - halfWidth) / noiseScale * frequency + octaveOffsets[i].x;
+                    float sampleY = (y - halfHeight) / noiseScale * frequency + octaveOffsets[i].y;
 
                     float perlinVal = Mathf.PerlinNoise(sampleX, sampleY) * 2 - 1; // "* 2 - 1" changes range from [0,1] to [-1,1]
                     noiseHeight += perlinVal * amplitude;
