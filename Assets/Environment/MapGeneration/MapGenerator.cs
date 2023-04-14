@@ -51,11 +51,11 @@ public class MapGenerator : MonoBehaviour
         //decide if drawing noise map or color map
         if (drawMode == DrawMode.noiseMap)
         {
-            display.DrawNoiseMap(noiseMap); //create texture plane with a noise map
+            display.DrawTexture(TextureGenerator.TextureFromHeightMap(noiseMap)); //create texture plane with a noise map
         }
         else if (drawMode == DrawMode.colorMap)
         {
-
+            display.DrawTexture(TextureGenerator.TextureFromColorMap(colorMap, mapWidth, mapHeight)); //create texture plane with a noise map
         }
     }
 
