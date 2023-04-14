@@ -11,6 +11,7 @@ public class MapGenerator : MonoBehaviour
 
     public int octaves;
     public float lacunarity;
+    [Range(0,1)]
     public float persistance;
 
     public int seed;
@@ -24,6 +25,30 @@ public class MapGenerator : MonoBehaviour
 
         MapDisplay display = FindObjectOfType<MapDisplay>(); //ref to MapDisplay.cs
         display.DrawNoiseMap(noiseMap); //create texture plane with a noise map
+    }
+
+    //for clamping values in the editor
+    private void OnValidate()
+    {
+        if (mapWidth < 1)
+        {
+            mapWidth = 1;
+        }
+
+        if (mapHeight < 1)
+        {
+            mapHeight = 1;
+        }
+
+        if (lacunarity < 1)
+        {
+            lacunarity = 1;
+        }
+
+        if (octaves < 1)
+        {
+            octaves = 1;
+        }
     }
 
 }
