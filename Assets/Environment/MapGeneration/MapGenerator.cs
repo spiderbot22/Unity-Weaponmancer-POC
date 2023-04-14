@@ -5,6 +5,9 @@ using UnityEngine;
 public class MapGenerator : MonoBehaviour
 {
 
+    public enum DrawMode {noiseMap, colorMap}
+    public DrawMode drawMode;
+
     public int mapWidth;
     public int mapHeight;
     public float noiseScale;
@@ -24,9 +27,36 @@ public class MapGenerator : MonoBehaviour
     public void GenerateMap()
     {
         float[,] noiseMap = Noise.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScale, octaves, lacunarity, persistance, offset);
+        Color[] colorMap = new Color[mapWidth * mapHeight];
+
+        for (int y = 0; y < mapHeight; y++)
+        {
+            for (int x = 0; x < mapWidth; x++)
+            {
+                float currentHeight = noiseMap[x, y];
+
+                for (int i = 0; i < regions.Length; i++)
+                {
+                    if (currentHeight <= regions[i].height)
+                    {
+                        colorMap[y * mapWidth + x] = regions[i].color;
+                        break;
+                    }
+                }
+            }
+        }
 
         MapDisplay display = FindObjectOfType<MapDisplay>(); //ref to MapDisplay.cs
-        display.DrawNoiseMap(noiseMap); //create texture plane with a noise map
+
+        //decide if drawing noise map or color map
+        if (drawMode == DrawMode.noiseMap)
+        {
+            display.DrawNoiseMap(noiseMap); //create texture plane with a noise map
+        }
+        else if (drawMode == DrawMode.colorMap)
+        {
+
+        }
     }
 
     //For clamping values in the editor, method is called everytime a variable is changed in the editor
