@@ -19,6 +19,8 @@ public class MapGenerator : MonoBehaviour
 
     public bool autoUpdate;
 
+    public TerrainType[] regions;
+
     public void GenerateMap()
     {
         float[,] noiseMap = Noise.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScale, octaves, lacunarity, persistance, offset);
@@ -27,7 +29,7 @@ public class MapGenerator : MonoBehaviour
         display.DrawNoiseMap(noiseMap); //create texture plane with a noise map
     }
 
-    //for clamping values in the editor
+    //For clamping values in the editor, method is called everytime a variable is changed in the editor
     private void OnValidate()
     {
         if (mapWidth < 1)
@@ -49,6 +51,14 @@ public class MapGenerator : MonoBehaviour
         {
             octaves = 1;
         }
+    }
+
+    [System.Serializable]
+    public struct TerrainType
+    {
+        public string name;
+        public float height;
+        public Color color;
     }
 
 }
