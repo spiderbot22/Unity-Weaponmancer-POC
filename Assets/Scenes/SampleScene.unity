@@ -1283,7 +1283,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapWidth: 100
   mapHeight: 100
-  noiseScale: 1.85
+  noiseScale: 2.56
+  octaves: 4
+  lacunarity: 0.37
+  persistance: 0.83
+  seed: 29
+  offset: {x: 11.9, y: -4.8}
   autoUpdate: 1
 --- !u!1 &1601389489
 GameObject:
