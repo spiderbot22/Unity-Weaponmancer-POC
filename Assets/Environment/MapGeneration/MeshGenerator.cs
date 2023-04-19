@@ -9,7 +9,7 @@ public class MeshGenerator
         int width = heightMap.GetLength(0);
         int height = heightMap.GetLength(1);
         //to keep texture centered we need negative values on the left and positive on the right
-        float topLeftX = (width - 1) / 2f;
+        float topLeftX = (width - 1) / -2f;
         float topLeftZ = (height - 1) / 2f;
 
         MeshData meshData = new MeshData(width, height);
@@ -19,7 +19,7 @@ public class MeshGenerator
         {
             for (int x = 0; x < width; x++)
             {
-                meshData.vertices[vertexIndex] = new Vector3(topLeftX - x, heightMap[x, y], topLeftZ - y);
+                meshData.vertices[vertexIndex] = new Vector3(topLeftX + x, heightMap[x, y], topLeftZ - y);
                 meshData.uvs[vertexIndex] = new Vector2(x / (float)width, y / (float)height);
 
                 //ignoring right and bottom edge verts of map
@@ -48,14 +48,14 @@ public class MeshData
     {
         vertices = new Vector3[meshWidth * meshHeight];
         uvs = new Vector2[meshWidth * meshHeight];
-        triangles = new int[(meshWidth - 1) * (meshHeight - 1)];
+        triangles = new int[(meshWidth - 1) * (meshHeight - 1) * 6];
     }
 
     public void AddTriangle(int a, int b, int c)
     {
-        triangles[triangleIndex] = c;
+        triangles[triangleIndex] = a;
         triangles[triangleIndex + 1] = b;
-        triangles[triangleIndex + 2] = a;
+        triangles[triangleIndex + 2] = c;
         triangleIndex += 3;
     }
 
