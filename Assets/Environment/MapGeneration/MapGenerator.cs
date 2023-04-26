@@ -30,7 +30,27 @@ public class MapGenerator : MonoBehaviour
 
     public TerrainType[] regions;
 
-    public void GenerateMap()
+    public void DrawMapInEditor()
+    {
+        MapData mapData = GenerateMapData();
+        MapDisplay display = FindObjectOfType<MapDisplay>(); //ref to MapDisplay.cs
+
+        //decide if drawing noise map or color map
+        if (drawMode == DrawMode.noiseMap)
+        {
+            display.DrawTexture(TextureGenerator.TextureFromHeightMap(mapData.heightMap)); //create texture plane with a noise map
+        }
+        else if (drawMode == DrawMode.colorMap)
+        {
+            display.DrawTexture(TextureGenerator.TextureFromColorMap(mapData.colorMap, mapChunkSize, mapChunkSize)); //create texture plane with a noise map
+        }
+        else if (drawMode == DrawMode.Mesh)
+        {
+            display.DrawMesh(MeshGenerator.GenerateTerrainMesh(mapData.heightMap, meshHeightMultiplier, meshHeightCurve, levelOfDetail), TextureGenerator.TextureFromColorMap(mapData.colorMap, mapChunkSize, mapChunkSize));
+        }
+    }
+
+    MapData GenerateMapData()
     {
         float[,] noiseMap = Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, noiseScale, octaves, lacunarity, persistance, offset);
         Color[] colorMap = new Color[mapChunkSize * mapChunkSize];
@@ -52,21 +72,8 @@ public class MapGenerator : MonoBehaviour
             }
         }
 
-        MapDisplay display = FindObjectOfType<MapDisplay>(); //ref to MapDisplay.cs
+        return new MapData(noiseMap, colorMap);
 
-        //decide if drawing noise map or color map
-        if (drawMode == DrawMode.noiseMap)
-        {
-            display.DrawTexture(TextureGenerator.TextureFromHeightMap(noiseMap)); //create texture plane with a noise map
-        }
-        else if (drawMode == DrawMode.colorMap)
-        {
-            display.DrawTexture(TextureGenerator.TextureFromColorMap(colorMap, mapChunkSize, mapChunkSize)); //create texture plane with a noise map
-        }
-        else if (drawMode == DrawMode.Mesh)
-        {
-            display.DrawMesh(MeshGenerator.GenerateTerrainMesh(noiseMap, meshHeightMultiplier, meshHeightCurve, levelOfDetail), TextureGenerator.TextureFromColorMap(colorMap, mapChunkSize, mapChunkSize));
-        }
     }
 
     //For clamping values in the editor, method is called everytime a variable is changed in the editor
@@ -89,6 +96,19 @@ public class MapGenerator : MonoBehaviour
         public string name;
         public float height;
         public Color color;
+    }
+
+    public struct MapData
+    {
+        public float[,] heightMap;
+        public Color[] colorMap;
+
+        public MapData(float[,] heightMap, Color[] colorMap)
+        {
+            this.heightMap = heightMap;
+            this.colorMap = colorMap;
+        }
+
     }
 
 }
