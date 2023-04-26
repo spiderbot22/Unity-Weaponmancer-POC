@@ -10,7 +10,7 @@ public class MapGenerator : MonoBehaviour
 
     //Max size is 255 but 241 is ideal since 241-1=240 which is divisible by lots of numbers,
     //allowing for multiple factors of triangle reductions depending on distance from player.
-    const int mapChunkSize = 241;
+    public const int mapChunkSize = 241;
     [Range(0,6)]
     public int levelOfDetail;
     public float noiseScale;
