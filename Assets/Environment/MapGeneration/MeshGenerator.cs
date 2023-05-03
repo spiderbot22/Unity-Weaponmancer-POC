@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class MeshGenerator
 {
-    public static MeshData GenerateTerrainMesh(float[,] heightMap, float heightMultiplier, AnimationCurve heightCurve, int levelOfDetail)
+    public static MeshData GenerateTerrainMesh(float[,] heightMap, float heightMultiplier, AnimationCurve _heightCurve, int levelOfDetail)
     {
+        AnimationCurve heightCurve = new AnimationCurve(_heightCurve.keys); //so each thread has its own height curve otherwise bad things happen
         int width = heightMap.GetLength(0);
         int height = heightMap.GetLength(1);
         //to keep texture centered we need negative values on the left and positive on the right
