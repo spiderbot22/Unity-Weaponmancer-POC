@@ -32,6 +32,8 @@ public class MapGenerator : MonoBehaviour
 
     public TerrainType[] regions;
 
+    Queue<MapThreadInfo<MapData>> mapDataThreadInfoQueue = new Queue<MapThreadInfo<MapData>>();
+
     public void DrawMapInEditor()
     {
         MapData mapData = GenerateMapData();
@@ -62,7 +64,23 @@ public class MapGenerator : MonoBehaviour
     void MapDataThread(Action<MapData> callback)
     {
         MapData mapData = GenerateMapData();
+        lock (mapDataThreadInfoQueue) //prevent multiple threads from accessing que at the same time
+        {
+            mapDataThreadInfoQueue.Enqueue(new MapThreadInfo<MapData>(callback, mapData));
+        }
+       
+    }
 
+    void Update()
+    {
+        if (mapDataThreadInfoQueue.Count > 0)
+        {
+            for (int i = 0; i < mapDataThreadInfoQueue.Count; i++)
+            {
+                MapThreadInfo<MapData> threadInfo = mapDataThreadInfoQueue.Dequeue();
+                threadInfo.callback(threadInfo.parameter);
+            }
+        }
     }
 
     MapData GenerateMapData()
@@ -115,6 +133,7 @@ public class MapGenerator : MonoBehaviour
             this.callback = callback;
             this.parameter = parameter;
         }
+
     }
 
 
