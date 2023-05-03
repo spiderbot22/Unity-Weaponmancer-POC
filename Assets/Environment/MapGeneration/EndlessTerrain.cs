@@ -8,6 +8,7 @@ public class EndlessTerrain : MonoBehaviour
     public Transform viewer;
 
     public static Vector2 viewerPosition;
+    static MapGenerator mapGenerator;
     int chunkSize;
     int chunksVisibleInViewDst;
 
@@ -16,6 +17,7 @@ public class EndlessTerrain : MonoBehaviour
 
     private void Start()
     {
+        mapGenerator = FindObjectOfType<MapGenerator>();
         chunkSize = MapGenerator.mapChunkSize - 1;
         chunksVisibleInViewDst = Mathf.RoundToInt(maxViewDst / chunkSize); //rounded so coord (1.34,0.44) simplifies to (1,0)
     }
@@ -71,17 +73,36 @@ public class EndlessTerrain : MonoBehaviour
         Vector2 position;
         Bounds bounds;
 
+        MapData mapData;
+
+        MeshRenderer meshRenderer;
+        MeshFilter meshFilter;
+
         public TerrainChunk(Vector2 coord, int size, Transform parent)
         {
             position = coord * size;
             bounds = new Bounds(position, Vector2.one * size);
             Vector3 positionV3 = new Vector3(position.x, 0, position.y);
 
-            meshObject = GameObject.CreatePrimitive(PrimitiveType.Plane);
+            meshObject = new GameObject("Terrain Chunk");
+            meshRenderer = meshObject.AddComponent<MeshRenderer>();
+            meshFilter = meshObject.AddComponent<MeshFilter>();
             meshObject.transform.position = positionV3;
             meshObject.transform.localScale = Vector3.one * size / 10f; //10f because primitive plane mesh is size 10
             meshObject.transform.parent = parent;
             SetVisible(false);
+
+            mapGenerator.RequestMapData(OnMapDataReceived);
+        }
+
+        void OnMapDataReceived(MapData mapData)
+        {
+            print("Map data received");
+        }
+
+        void OnMeshDataReceived(MeshData meshData)
+        {
+            meshFilter.mesh = meshData.CreateMesh();
         }
 
         public void UpdateTerrainChunk()
