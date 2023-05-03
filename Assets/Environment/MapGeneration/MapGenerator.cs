@@ -1,3 +1,5 @@
+using System;
+using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,19 +7,19 @@ using UnityEngine;
 public class MapGenerator : MonoBehaviour
 {
 
-    public enum DrawMode {noiseMap, colorMap, Mesh}
+    public enum DrawMode { noiseMap, colorMap, Mesh }
     public DrawMode drawMode;
 
     //Max size is 255 but 241 is ideal since 241-1=240 which is divisible by lots of numbers,
     //allowing for multiple factors of triangle reductions depending on distance from player.
     public const int mapChunkSize = 241;
-    [Range(0,6)]
+    [Range(0, 6)]
     public int levelOfDetail;
     public float noiseScale;
 
     public int octaves;
     public float lacunarity;
-    [Range(0,1)]
+    [Range(0, 1)]
     public float persistance;
 
     public int seed;
@@ -48,6 +50,19 @@ public class MapGenerator : MonoBehaviour
         {
             display.DrawMesh(MeshGenerator.GenerateTerrainMesh(mapData.heightMap, meshHeightMultiplier, meshHeightCurve, levelOfDetail), TextureGenerator.TextureFromColorMap(mapData.colorMap, mapChunkSize, mapChunkSize));
         }
+    }
+
+    public void RequestMapData(Action<MapData> callback)
+    {
+        ThreadStart threadStart = delegate { MapDataThread(callback); };
+
+        new Thread(threadStart).Start();
+    }
+
+    void MapDataThread(Action<MapData> callback)
+    {
+        MapData mapData = GenerateMapData();
+
     }
 
     MapData GenerateMapData()
@@ -90,25 +105,38 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    [System.Serializable]
-    public struct TerrainType
+    struct MapThreadInfo<T>
     {
-        public string name;
-        public float height;
-        public Color color;
+        public readonly Action<T> callback;
+        public readonly T parameter;
+
+        public MapThreadInfo(Action<T> callback, T parameter)
+        {
+            this.callback = callback;
+            this.parameter = parameter;
+        }
     }
 
-    public struct MapData
+
+}
+
+[System.Serializable]
+public struct TerrainType
+{
+    public string name;
+    public float height;
+    public Color color;
+}
+
+public struct MapData
+{
+    public readonly float[,] heightMap;
+    public readonly Color[] colorMap;
+
+    public MapData(float[,] heightMap, Color[] colorMap)
     {
-        public float[,] heightMap;
-        public Color[] colorMap;
-
-        public MapData(float[,] heightMap, Color[] colorMap)
-        {
-            this.heightMap = heightMap;
-            this.colorMap = colorMap;
-        }
-
+        this.heightMap = heightMap;
+        this.colorMap = colorMap;
     }
 
 }
