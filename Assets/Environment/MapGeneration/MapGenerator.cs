@@ -14,7 +14,8 @@ public class MapGenerator : MonoBehaviour
 
     //Max size is 255 but 241 is ideal since 241-1=240 which is divisible by lots of numbers,
     //allowing for multiple factors of triangle reductions depending on distance from player.
-    public const int mapChunkSize = 241;
+    //Set to 239 because of the (+2) added on border in the noise map
+    public const int mapChunkSize = 239;
     [Range(0, 6)]
     public int editorPreviewLOD;
     public float noiseScale;
@@ -127,7 +128,7 @@ public class MapGenerator : MonoBehaviour
 
     MapData GenerateMapData(Vector2 center)
     {
-        float[,] noiseMap = Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, noiseScale, octaves, lacunarity, persistance, center + offset, normalizeMode);
+        float[,] noiseMap = Noise.GenerateNoiseMap(mapChunkSize + 2, mapChunkSize + 2, seed, noiseScale, octaves, lacunarity, persistance, center + offset, normalizeMode);
         Color[] colorMap = new Color[mapChunkSize * mapChunkSize];
 
         for (int y = 0; y < mapChunkSize; y++)
@@ -171,7 +172,7 @@ public class MapGenerator : MonoBehaviour
         {
             octaves = 1;
         }
-
+         
         falloffMap = FalloffGenerator.GenerateFalloffMap(mapChunkSize);
     }
 
