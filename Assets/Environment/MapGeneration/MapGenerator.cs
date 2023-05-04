@@ -10,6 +10,8 @@ public class MapGenerator : MonoBehaviour
     public enum DrawMode { noiseMap, colorMap, Mesh }
     public DrawMode drawMode;
 
+    public Noise.NormalizeMode normalizeMode;
+
     //Max size is 255 but 241 is ideal since 241-1=240 which is divisible by lots of numbers,
     //allowing for multiple factors of triangle reductions depending on distance from player.
     public const int mapChunkSize = 241;
@@ -112,7 +114,7 @@ public class MapGenerator : MonoBehaviour
 
     MapData GenerateMapData(Vector2 center)
     {
-        float[,] noiseMap = Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, noiseScale, octaves, lacunarity, persistance, center + offset);
+        float[,] noiseMap = Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, noiseScale, octaves, lacunarity, persistance, center + offset, normalizeMode);
         Color[] colorMap = new Color[mapChunkSize * mapChunkSize];
 
         for (int y = 0; y < mapChunkSize; y++)
