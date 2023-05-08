@@ -12,10 +12,10 @@ public class MapGenerator : MonoBehaviour
 
     public Noise.NormalizeMode normalizeMode;
 
-    //Max size is 255 but 241 is ideal since 241-1=240 which is divisible by lots of numbers,
-    //allowing for multiple factors of triangle reductions depending on distance from player.
-    //Set to 239 because of the (+2) added on border in the noise map
-    public const int mapChunkSize = 239;
+    public const int mapChunkSize = 95;
+
+    public bool useFlatShading;
+
     [Range(0, 6)]
     public int editorPreviewLOD;
     public float noiseScale;
@@ -63,7 +63,7 @@ public class MapGenerator : MonoBehaviour
         }
         else if (drawMode == DrawMode.Mesh)
         {
-            display.DrawMesh(MeshGenerator.GenerateTerrainMesh(mapData.heightMap, meshHeightMultiplier, meshHeightCurve, editorPreviewLOD), TextureGenerator.TextureFromColorMap(mapData.colorMap, mapChunkSize, mapChunkSize));
+            display.DrawMesh(MeshGenerator.GenerateTerrainMesh(mapData.heightMap, meshHeightMultiplier, meshHeightCurve, editorPreviewLOD, useFlatShading), TextureGenerator.TextureFromColorMap(mapData.colorMap, mapChunkSize, mapChunkSize));
         }
         else if (drawMode == DrawMode.FalloffMap)
         {
@@ -97,7 +97,7 @@ public class MapGenerator : MonoBehaviour
 
     void MeshDataThread(MapData mapData, int lod, Action<MeshData> callback)
     {
-        MeshData meshData = MeshGenerator.GenerateTerrainMesh(mapData.heightMap, meshHeightMultiplier, meshHeightCurve, lod);
+        MeshData meshData = MeshGenerator.GenerateTerrainMesh(mapData.heightMap, meshHeightMultiplier, meshHeightCurve, lod, useFlatShading);
         lock (meshDataThreadInfoQueue)
         {
             meshDataThreadInfoQueue.Enqueue(new MapThreadInfo<MeshData>(callback, meshData));
