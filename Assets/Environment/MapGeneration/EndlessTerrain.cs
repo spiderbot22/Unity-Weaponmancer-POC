@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EndlessTerrain : MonoBehaviour
 {
-    const float scale = 1;
 
     const float viewerMoveThresholdForChunkUpdate = 25f;
     const float sqrViewerMoveThresholdForChunkUpdate = viewerMoveThresholdForChunkUpdate * viewerMoveThresholdForChunkUpdate;
@@ -24,7 +23,7 @@ public class EndlessTerrain : MonoBehaviour
     Dictionary<Vector2, TerrainChunk> terrainChunkDictionary = new Dictionary<Vector2, TerrainChunk>(); //holds current chunks around the viewer
     static List<TerrainChunk> terrainChunksVisibleLastUpdate = new List<TerrainChunk>();
 
-    private void Start()
+    void Start()
     {
         mapGenerator = FindObjectOfType<MapGenerator>();
 
@@ -35,9 +34,9 @@ public class EndlessTerrain : MonoBehaviour
         UpdateVisibleChunks();
     }
 
-    private void Update()
+    void Update()
     {
-        viewerPosition = new Vector2(viewer.position.x, viewer.position.z) / scale;
+        viewerPosition = new Vector2(viewer.position.x, viewer.position.z) / mapGenerator.terrainData.uniformScale;
 
         //only update chunks when viewer is within a certain distance
         if ((viewerPositionOld-viewerPosition).sqrMagnitude > sqrViewerMoveThresholdForChunkUpdate)
@@ -115,9 +114,9 @@ public class EndlessTerrain : MonoBehaviour
             meshRenderer.material = material;
             meshObject.layer = layerWhatIsGround;
 
-            meshObject.transform.position = positionV3 * scale;
+            meshObject.transform.position = positionV3 * mapGenerator.terrainData.uniformScale;
             meshObject.transform.parent = parent;
-            meshObject.transform.localScale = Vector3.one * scale;
+            meshObject.transform.localScale = Vector3.one * mapGenerator.terrainData.uniformScale;
             SetVisible(false);
 
             lodMeshes = new LODMesh[detailLevels.Length];
