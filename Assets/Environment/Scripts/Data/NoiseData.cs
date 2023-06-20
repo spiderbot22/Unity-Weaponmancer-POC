@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu()]
-public class NoiseData : ScriptableObject
+public class NoiseData : UpdatableData
 {
 
     public Noise.NormalizeMode normalizeMode;
