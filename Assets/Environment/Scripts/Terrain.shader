@@ -16,6 +16,12 @@ Shader "Custom/Terrain"
         // Use shader model 3.0 target, to get nicer looking lighting
         #pragma target 3.0
 
+        const static int maxColorCount = 8;
+
+        int baseColorCount;
+        float3 baseColors[maxColorCount];
+        float baseStartHeights[maxColorCount];
+
         float minHeight;
         float maxHeight;
 
@@ -38,7 +44,11 @@ Shader "Custom/Terrain"
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
             float heightPercent = inverseLerp(minHeight, maxHeight, IN.worldPos.y);
-            o.Albedo = heightPercent;
+            for (int i = 0; i < baseColorCount; i++)
+            {
+                float drawStrength = saturate(sign(heightPercent - baseStartHeights[i]));
+                o.Albedo = o.Albedo * (1-drawStrength) + baseColors[i] * drawStrength;
+            }
         }
         ENDCG
     }
