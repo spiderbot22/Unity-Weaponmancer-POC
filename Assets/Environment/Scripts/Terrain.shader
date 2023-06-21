@@ -34,6 +34,7 @@ Shader "Custom/Terrain"
         struct Input
         {
             float3 worldPos;
+            float3 worldNormal;
         };
 
         float inverseLerp(float a, float b, float value) {
@@ -56,7 +57,13 @@ Shader "Custom/Terrain"
                 o.Albedo = o.Albedo * (1-drawStrength) + baseColors[i] * drawStrength;
             }
 
-            o.Albedo = tex2D(testTexture, IN.worldPos.xy / testScale);
+            float3 scaledWorldPos = IN.worldPos / testScale;
+            float3 blendAxes = abs(IN.worldNormal);
+            blendAxes /= blendAxes.x + blendAxes.y + blendAxes.z; //make sure all axes do not have a total higher than 1 to prevent brightening
+            float3 xProjection = tex2D(testTexture, scaledWorldPos.yz) * blendAxes.x;
+            float3 yProjection = tex2D(testTexture, scaledWorldPos.xz) * blendAxes.y;
+            float3 zProjection = tex2D(testTexture, scaledWorldPos.xy) * blendAxes.z;
+            o.Albedo = xProjection + yProjection + zProjection;
 
         }
         ENDCG
