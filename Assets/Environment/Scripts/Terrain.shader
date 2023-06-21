@@ -2,7 +2,8 @@ Shader "Custom/Terrain"
 {
     Properties
     {
-
+        testTexture("Texture", 2D) = "white"{}
+        testScale("Scale", Float) = 1
     }
     SubShader
     {
@@ -26,6 +27,9 @@ Shader "Custom/Terrain"
 
         float minHeight;
         float maxHeight;
+
+        sampler2D testTexture;
+        float testScale;
 
         struct Input
         {
@@ -51,6 +55,9 @@ Shader "Custom/Terrain"
                 float drawStrength = inverseLerp(-baseBlends[i]/2 - epsilon, baseBlends[i]/2, heightPercent - baseStartHeights[i]);
                 o.Albedo = o.Albedo * (1-drawStrength) + baseColors[i] * drawStrength;
             }
+
+            o.Albedo = tex2D(testTexture, IN.worldPos.xy / testScale);
+
         }
         ENDCG
     }
