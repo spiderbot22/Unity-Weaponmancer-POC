@@ -17,19 +17,23 @@ Shader "Custom/Terrain"
         // Use shader model 3.0 target, to get nicer looking lighting
         #pragma target 3.0
 
-        const static int maxColorCount = 8;
+        const static int maxLayerCount = 8;
         const static float epsilon = 1E-4;
 
-        int baseColorCount;
-        float3 baseColors[maxColorCount];
-        float baseStartHeights[maxColorCount];
-        float baseBlends[maxColorCount];
+        int layerCount;
+        float3 baseColors[maxLayerCount];
+        float baseStartHeights[maxLayerCount];
+        float baseBlends[maxLayerCount];
+        float baseColorStrength[maxLayerCount];
+        float baseTextureScales[maxLayerCount];
 
         float minHeight;
         float maxHeight;
 
         sampler2D testTexture;
         float testScale;
+
+        UNITY_DECLARE_TEX2DARRAY(baseTextures);
 
         struct Input
         {
@@ -51,7 +55,7 @@ Shader "Custom/Terrain"
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
             float heightPercent = inverseLerp(minHeight, maxHeight, IN.worldPos.y);
-            for (int i = 0; i < baseColorCount; i++)
+            for (int i = 0; i < layerCount; i++)
             {
                 float drawStrength = inverseLerp(-baseBlends[i]/2 - epsilon, baseBlends[i]/2, heightPercent - baseStartHeights[i]);
                 o.Albedo = o.Albedo * (1-drawStrength) + baseColors[i] * drawStrength;
@@ -63,7 +67,7 @@ Shader "Custom/Terrain"
             float3 xProjection = tex2D(testTexture, scaledWorldPos.yz) * blendAxes.x;
             float3 yProjection = tex2D(testTexture, scaledWorldPos.xz) * blendAxes.y;
             float3 zProjection = tex2D(testTexture, scaledWorldPos.xy) * blendAxes.z;
-            o.Albedo = xProjection + yProjection + zProjection;
+            //o.Albedo = xProjection + yProjection + zProjection;
 
         }
         ENDCG
