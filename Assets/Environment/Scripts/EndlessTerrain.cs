@@ -270,9 +270,9 @@ public class EndlessTerrain : MonoBehaviour
     [System.Serializable]
     public struct LODInfo
     {
+        [Range(0, MeshGenerator.numSupportedLODs -1)]
         public int lod;
         public float visibledDistanceThreshold;
-        public bool useForCollider;
 
         public float sqrVisibleDstThreshold
         {
