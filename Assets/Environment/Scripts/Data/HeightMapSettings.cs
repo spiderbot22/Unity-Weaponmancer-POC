@@ -6,13 +6,12 @@ using UnityEngine;
 public class HeightMapSettings : UpdatableData
 {
 
-    NoiseSettings noiseSettings;
-    NoiseSettings noiseSettings;
+    public NoiseSettings noiseSettings;
 
     public bool useFalloff;
 
     public float heightMultiplier;
-    public AnimationCurve heightCurve;
+    public AnimationCurve heightCurve; //so each thread has its own height curve otherwise bad things happen
 
     public float minHeight
     {
@@ -34,18 +33,8 @@ public class HeightMapSettings : UpdatableData
 
     protected override void OnValidate()
     {
-        if (lacunarity < 1)
-        {
-            lacunarity = 1;
-        }
-
-        if (octaves < 1)
-        {
-            octaves = 1;
-        }
+        noiseSettings.ValidateValues();
         base.OnValidate();
     }
-
     #endif
-
 }
