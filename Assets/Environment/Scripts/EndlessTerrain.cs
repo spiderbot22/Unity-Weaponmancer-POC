@@ -107,20 +107,25 @@ public class EndlessTerrain : MonoBehaviour
         LODMesh[] lodMeshes;
         int colliderLODIndex;
 
-        HeightMap mapData;
+        HeightMap heightMap;
         bool mapDataReceived;
         int previousLODIndex = -1;
         bool hasSetCollider;
 
-        public TerrainChunk(Vector2 coord, float meshWorldSize, LODInfo[] detailLevels, int colliderLODIndex, Transform parent, Material material)
+        HeightMapSettings heightMapSettings;
+        MeshSettings meshSettings;
+
+        public TerrainChunk(Vector2 coord, HeightMapSettings heightMapSettings, MeshSettings meshSettings, LODInfo[] detailLevels, int colliderLODIndex, Transform parent, Material material)
         {
             this.coord = coord;
             this.detailLevels = detailLevels;
             this.colliderLODIndex = colliderLODIndex;
+            this.heightMapSettings = heightMapSettings;
+            this.meshSettings = meshSettings;
 
-            sampleCenter = coord * meshWorldSize / mapGenerator.meshSettings.meshScale;
-            Vector2 position = coord * meshWorldSize;
-            bounds = new Bounds(position, Vector2.one * meshWorldSize);
+            sampleCenter = coord * meshSettings.meshWorldSize / meshSettings.meshScale;
+            Vector2 position = coord * meshSettings.meshWorldSize;
+            bounds = new Bounds(position, Vector2.one * meshSettings.meshWorldSize);
 
             meshObject = new GameObject("Terrain Chunk");
             meshRenderer = meshObject.AddComponent<MeshRenderer>();
@@ -145,13 +150,13 @@ public class EndlessTerrain : MonoBehaviour
                 }
             }
 
-            mapGenerator.RequestHeightMap(sampleCenter, OnMapDataReceived);
+            ThreadedDataRequester.RequestData(() => HeightMapGenerator.GenerateHeightMap(meshSettings.numVertsPerLine, meshSettings.numVertsPerLine, heightMapSettings, sampleCenter), OnHeightMapReceived);
         }
 
-        void OnMapDataReceived(HeightMap mapData)
+        void OnHeightMapReceived(object heightMapObject)
         {
-            this.mapData = mapData;
-            mapDataReceived = true;
+            this.heightMap = (HeightMap)heightMapObject;
+            heightMapReceived = true;
 
             UpdateTerrainChunk();
         }
@@ -192,7 +197,7 @@ public class EndlessTerrain : MonoBehaviour
                         }
                         else if (lodMesh.hasRequestedMesh != true)
                         {
-                            lodMesh.RequestMesh(mapData);
+                            lodMesh.RequestMesh(heightMap);
                         }
                     }
                 }
@@ -222,7 +227,7 @@ public class EndlessTerrain : MonoBehaviour
                 {
                     if (!lodMeshes[colliderLODIndex].hasRequestedMesh)
                     {
-                        lodMeshes[colliderLODIndex].RequestMesh(mapData);
+                        lodMeshes[colliderLODIndex].RequestMesh(heightMap);
                     }
                 }
 
@@ -262,18 +267,18 @@ public class EndlessTerrain : MonoBehaviour
             this.lod = lod;
         }
 
-        void OnMeshDataReceived(MeshData meshData)
+        void OnMeshDataReceived(object meshDataObject)
         {
-            mesh = meshData.CreateMesh();
+            mesh = ((MeshData)meshDataObject).CreateMesh();
             hasMesh = true;
 
             updateCallback();
         }
 
-        public void RequestMesh(HeightMap mapData)
+        public void RequestMesh(HeightMap heightMap, MeshSettings meshSettings)
         {
             hasRequestedMesh = true;
-            mapGenerator.RequestMeshData(mapData, lod, OnMeshDataReceived);
+            ThreadedDataRequester.RequestData(() => MeshGenerator.GenerateTerrainMesh(heightMap.values, meshSettings, lod), OnMeshDataReceived);
         }
 
     }
