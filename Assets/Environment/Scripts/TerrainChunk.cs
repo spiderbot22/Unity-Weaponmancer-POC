@@ -70,6 +70,10 @@ public class TerrainChunk
 
         maxViewDst = detailLevels[detailLevels.Length - 1].visibledDistanceThreshold;
 
+    }
+
+    public void Load()
+    {
         ThreadedDataRequester.RequestData(() => HeightMapGenerator.GenerateHeightMap(meshSettings.numVertsPerLine, meshSettings.numVertsPerLine, heightMapSettings, sampleCenter), OnHeightMapReceived);
     }
 
@@ -125,7 +129,7 @@ public class TerrainChunk
                     }
                     else if (lodMesh.hasRequestedMesh != true)
                     {
-                        lodMesh.RequestMesh(heightMap);
+                        lodMesh.RequestMesh(heightMap, meshSettings);
                     }
                 }
             }
@@ -151,7 +155,7 @@ public class TerrainChunk
             {
                 if (!lodMeshes[colliderLODIndex].hasRequestedMesh)
                 {
-                    lodMeshes[colliderLODIndex].RequestMesh(heightMap);
+                    lodMeshes[colliderLODIndex].RequestMesh(heightMap, meshSettings);
                 }
             }
 
