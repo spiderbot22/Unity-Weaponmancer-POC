@@ -1,13 +1,15 @@
-using System;
-using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapGenerator : MonoBehaviour
+public class MapPreview : MonoBehaviour
 {
 
-    public enum DrawMode { noiseMap, Mesh, FalloffMap}
+    public Renderer textureRender;
+    public MeshFilter meshFilter;
+    public MeshRenderer meshRenderer;
+
+    public enum DrawMode { noiseMap, Mesh, FalloffMap }
     public DrawMode drawMode;
 
     public MeshSettings meshSettings;
@@ -20,12 +22,42 @@ public class MapGenerator : MonoBehaviour
     public int editorPreviewLOD;
     public bool autoUpdate;
 
-    float[,] falloffMap;
-
-    private void Start()
+    public void DrawMapInEditor()
     {
-        textureData.ApplyToMaterial(terrainMaterial);
         textureData.UpdateMeshHeights(terrainMaterial, heightMapSettings.minHeight, heightMapSettings.maxHeight);
+        HeightMap heightMap = HeightMapGenerator.GenerateHeightMap(meshSettings.numVertsPerLine, meshSettings.numVertsPerLine, heightMapSettings, Vector2.zero);
+
+        //decide if drawing noise map or color map
+        if (drawMode == DrawMode.noiseMap)
+        {
+            DrawTexture(TextureGenerator.TextureFromHeightMap(heightMap.values)); //create texture plane with a noise map
+        }
+        else if (drawMode == DrawMode.Mesh)
+        {
+            DrawMesh(MeshGenerator.GenerateTerrainMesh(heightMap.values, meshSettings, editorPreviewLOD));
+        }
+        else if (drawMode == DrawMode.FalloffMap)
+        {
+            DrawTexture(TextureGenerator.TextureFromHeightMap(FalloffGenerator.GenerateFalloffMap(meshSettings.numVertsPerLine)));
+        }
+    }
+
+    public void DrawTexture(Texture2D texture)
+    {
+        //generate texture
+        textureRender.sharedMaterial.mainTexture = texture;
+        textureRender.transform.localScale = new Vector3(texture.width, 1, texture.height); //set size of plane to size of map
+
+        textureRender.gameObject.SetActive(true);
+        meshFilter.gameObject.SetActive(false);
+    }
+       
+    public void DrawMesh(MeshData meshData)
+    {
+        meshFilter.sharedMesh = meshData.CreateMesh();
+
+        textureRender.gameObject.SetActive(false);
+        meshFilter.gameObject.SetActive(true);
     }
 
     void OnValuesUpdated()
@@ -39,28 +71,6 @@ public class MapGenerator : MonoBehaviour
     void OnTextureValuesUpdated()
     {
         textureData.ApplyToMaterial(terrainMaterial);
-    }
-
-    public void DrawMapInEditor()
-    {
-        textureData.UpdateMeshHeights(terrainMaterial, heightMapSettings.minHeight, heightMapSettings.maxHeight);
-        HeightMap heightMap = HeightMapGenerator.GenerateHeightMap(meshSettings.numVertsPerLine, meshSettings.numVertsPerLine, heightMapSettings, Vector2.zero);
-
-        MapDisplay display = FindObjectOfType<MapDisplay>(); //ref to MapDisplay.cs
-
-        //decide if drawing noise map or color map
-        if (drawMode == DrawMode.noiseMap)
-        {
-            display.DrawTexture(TextureGenerator.TextureFromHeightMap(heightMap.values)); //create texture plane with a noise map
-        }
-        else if (drawMode == DrawMode.Mesh)
-        {
-            display.DrawMesh(MeshGenerator.GenerateTerrainMesh(heightMap.values, meshSettings, editorPreviewLOD));
-        }
-        else if (drawMode == DrawMode.FalloffMap)
-        {
-            display.DrawTexture(TextureGenerator.TextureFromHeightMap(FalloffGenerator.GenerateFalloffMap(meshSettings.numVertsPerLine)));
-        }
     }
 
     //For clamping values in the editor, method is called everytime a variable is changed in the editor
@@ -85,4 +95,5 @@ public class MapGenerator : MonoBehaviour
         }
 
     }
+
 }
