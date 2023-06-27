@@ -24,13 +24,14 @@ public class MapPreview : MonoBehaviour
 
     public void DrawMapInEditor()
     {
+        textureData.ApplyToMaterial(terrainMaterial);
         textureData.UpdateMeshHeights(terrainMaterial, heightMapSettings.minHeight, heightMapSettings.maxHeight);
         HeightMap heightMap = HeightMapGenerator.GenerateHeightMap(meshSettings.numVertsPerLine, meshSettings.numVertsPerLine, heightMapSettings, Vector2.zero);
 
         //decide if drawing noise map or color map
         if (drawMode == DrawMode.noiseMap)
         {
-            DrawTexture(TextureGenerator.TextureFromHeightMap(heightMap.values)); //create texture plane with a noise map
+            DrawTexture(TextureGenerator.TextureFromHeightMap(heightMap)); //create texture plane with a noise map
         }
         else if (drawMode == DrawMode.Mesh)
         {
@@ -38,7 +39,7 @@ public class MapPreview : MonoBehaviour
         }
         else if (drawMode == DrawMode.FalloffMap)
         {
-            DrawTexture(TextureGenerator.TextureFromHeightMap(FalloffGenerator.GenerateFalloffMap(meshSettings.numVertsPerLine)));
+            DrawTexture(TextureGenerator.TextureFromHeightMap(new HeightMap(FalloffGenerator.GenerateFalloffMap(meshSettings.numVertsPerLine), 0, 1)));
         }
     }
 
@@ -46,7 +47,7 @@ public class MapPreview : MonoBehaviour
     {
         //generate texture
         textureRender.sharedMaterial.mainTexture = texture;
-        textureRender.transform.localScale = new Vector3(texture.width, 1, texture.height); //set size of plane to size of map
+        textureRender.transform.localScale = new Vector3(texture.width, 1, texture.height) /10f; //set size of plane to size of map
 
         textureRender.gameObject.SetActive(true);
         meshFilter.gameObject.SetActive(false);
