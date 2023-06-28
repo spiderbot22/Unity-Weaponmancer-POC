@@ -14,7 +14,7 @@ public class MeshGenerator
         //to keep texture centered we need negative values on the left and positive on the right
         Vector2 topLeft = new Vector2(-1, 1) * meshSettings.meshWorldSize / 2f;
 
-        MeshData meshData = new MeshData(numVertsPerLine, meshSettings.useFlatShading);
+        MeshData meshData = new MeshData(numVertsPerLine, skipIncrement, meshSettings.useFlatShading);
 
         int[,] vertexIndecesMap = new int[numVertsPerLine, numVertsPerLine];
         int meshVertexIndex = 0;
@@ -57,7 +57,7 @@ public class MeshGenerator
 
                     int vertexIndex = vertexIndecesMap[x, y];
                     Vector2 percent = new Vector2(x - 1, y - 1) / (numVertsPerLine - 3);
-                    Vector2 vertexPosition2D = topLeft + percent * meshSettings.meshWorldSize;
+                    Vector2 vertexPosition2D = topLeft + new Vector2(percent.x, -percent.y) * meshSettings.meshWorldSize;
                     float height = heightMap[x, y];
 
                     meshData.AddVertex(new Vector3(vertexPosition2D.x, height, vertexPosition2D.y), percent, vertexIndex);
@@ -98,20 +98,28 @@ public class MeshData
     int[] outOfMeshTriangles;
 
     int triangleIndex;
-    int borderTriangleIndex;
+    int outOfMeshTriangleIndex;
 
     bool useFlatShading;
 
-    public MeshData(int verticesPerLine, bool useFlatShading)
+    public MeshData(int numVertsPerLine, int skipIncrement, bool useFlatShading)
     {
         this.useFlatShading = useFlatShading;
 
-        vertices = new Vector3[verticesPerLine * verticesPerLine];
-        uvs = new Vector2[verticesPerLine * verticesPerLine];
-        triangles = new int[(verticesPerLine - 1) * (verticesPerLine - 1) * 6];
+        int numMeshEdgeVertices = (numVertsPerLine - 2) * 4 - 4; //*4 for each side and -4 for double counting of corners
+        int numEdgeConnectionVertices = (skipIncrement - 1) * (numVertsPerLine - 5) / skipIncrement * 4;
+        int numMainVerticesPerLine = (numVertsPerLine - 5) / skipIncrement + 1;
+        int numMainVertices = numMainVerticesPerLine * numMainVerticesPerLine;
 
-        outOfMeshVertices = new Vector3[verticesPerLine * 4 + 4]; //*4 for the sides and +4 for the corners
-        outOfMeshTriangles = new int[24 * verticesPerLine]; //6 vertices per 2 triangles per square * 4
+        vertices = new Vector3[numMeshEdgeVertices + numEdgeConnectionVertices + numMainVertices];
+        uvs = new Vector2[vertices.Length];
+
+        int numMeshEdgeTriangles = 8 * (numVertsPerLine - 4);
+        int numMainTriangles = (numMainVerticesPerLine - 1) * (numMainVerticesPerLine - 1) * 2;
+        triangles = new int[(numMeshEdgeTriangles + numMainTriangles) * 3];
+
+        outOfMeshVertices = new Vector3[numVertsPerLine * 4 - 4]; //*4 for the sides and +4 for the corners
+        outOfMeshTriangles = new int[24 * (numVertsPerLine - 2)]; //6 vertices per 2 triangles per square * 4
     }
 
     public void AddVertex(Vector3 vertexPosition, Vector2 uv, int vertexIndex)
@@ -131,10 +139,10 @@ public class MeshData
     {
         if (a < 0 || b < 0 || c < 0) //if border triangle
         {
-            outOfMeshTriangles[borderTriangleIndex] = a;
-            outOfMeshTriangles[borderTriangleIndex + 1] = b;
-            outOfMeshTriangles[borderTriangleIndex + 2] = c;
-            borderTriangleIndex += 3;
+            outOfMeshTriangles[outOfMeshTriangleIndex] = a;
+            outOfMeshTriangles[outOfMeshTriangleIndex + 1] = b;
+            outOfMeshTriangles[outOfMeshTriangleIndex + 2] = c;
+            outOfMeshTriangleIndex += 3;
         }
         else
         {
