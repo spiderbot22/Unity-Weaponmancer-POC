@@ -60,6 +60,19 @@ public class MeshGenerator
                     Vector2 vertexPosition2D = topLeft + new Vector2(percent.x, -percent.y) * meshSettings.meshWorldSize;
                     float height = heightMap[x, y];
 
+                    if (isEdgeConnectionVertex)
+                    {
+                        bool isVertical = x == 2 || x == numVertsPerLine - 3;
+                        int dstToMainVertexA = ((isVertical)? y - 2 : x - 2) % skipIncrement;
+                        int dstToMainVertexB = skipIncrement - dstToMainVertexA;
+                        float dstPercentFromAToB = dstToMainVertexA / (float)skipIncrement;
+
+                        float heightMainVertexA = heightMap[(isVertical) ? x : x - dstToMainVertexA, (isVertical) ? y - dstToMainVertexA : y];
+                        float heightMainVertexB = heightMap[(isVertical) ? x : x + dstToMainVertexB, (isVertical) ? y + dstToMainVertexB : y];
+
+                        height = heightMainVertexA * (1 - dstPercentFromAToB) + heightMainVertexB * dstPercentFromAToB;
+                    }
+
                     meshData.AddVertex(new Vector3(vertexPosition2D.x, height, vertexPosition2D.y), percent, vertexIndex);
 
                     bool createTriangle = x < numVertsPerLine - 1 && y < numVertsPerLine - 1 && (!isEdgeConnectionVertex || (x != 2 && y != 2));
@@ -76,7 +89,6 @@ public class MeshGenerator
                         meshData.AddTriangle(a, d, c);
                         meshData.AddTriangle(d, a, b);
                     }
-                    vertexIndex++;
                 }
             }
         }
